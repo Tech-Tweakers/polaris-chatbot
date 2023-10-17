@@ -4,6 +4,7 @@ import "time"
 
 type ReplyEntity struct {
 	CreatedAt time.Time `json:"createdAt"`
+	ChatID    string    `json:"chatId"`
 	EntryID   string    `json:"entryId"`
 	Name      string    `json:"name"`
 	AIReply   string    `json:"reply"`
@@ -11,6 +12,7 @@ type ReplyEntity struct {
 
 type ChatPersistence struct {
 	EntryID   float64   `json:"entryId"`
+	ChatID    string    `json:"chatId"`
 	CreatedAt time.Time `json:"createdAt"`
 	Role      string    `json:"role"`
 	Content   string    `json:"content"`

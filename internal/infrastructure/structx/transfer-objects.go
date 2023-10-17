@@ -70,6 +70,7 @@ type AiResponse struct {
 }
 
 type Messages []struct {
+	ChatID  string `json:"chatId"`
 	Role    string `json:"role"`
 	Content string `json:"content"`
 }

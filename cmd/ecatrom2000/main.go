@@ -39,7 +39,9 @@ func main() {
 
 }
 
-func setupecatrom2000(logger logwrapper.LoggerWrapper) (ecatrom.UseCases, error) {
+func setupecatrom2000(logger logwrapper.LoggerWrapper) (ecatrom2000UseCases ecatrom.UseCases, err error) {
+	var chatValue float64 = 0000
+
 	dynamodb, err := setupDynamoDB()
 	if err != nil {
 		return nil, err
@@ -48,10 +50,11 @@ func setupecatrom2000(logger logwrapper.LoggerWrapper) (ecatrom.UseCases, error)
 	memdbInput := &ecatrom.Input{
 		Repository: dynamodb,
 	}
-	ecatrom2000UseCases := ecatrom.New(memdbInput)
+	ecatrom2000UseCases = ecatrom.New(memdbInput)
 
+	chatValue++
 	ecatrom2000UseCases.LoadLogger(logger)
-	ecatrom2000UseCases.StartChat()
+	ecatrom2000UseCases.StartChat(chatValue)
 
 	return ecatrom2000UseCases, nil
 }

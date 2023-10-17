@@ -13,6 +13,7 @@ type Input struct {
 type ecatrom2000 struct {
 	repository  Repository
 	LastEntryID float64
+	ChatID      string
 	aiModel     *llama.LLama
 	logger      logwrapper.LoggerWrapper
 }
@@ -27,6 +28,7 @@ type UseCases interface {
 func New(input *Input) UseCases {
 	return &ecatrom2000{
 		repository:  input.Repository,
+		ChatID:      "0000",
 		LastEntryID: 0000,
 		logger:      nil,
 	}
