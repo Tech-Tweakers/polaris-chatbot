@@ -1,0 +1,360 @@
+@startuml
+namespace api {
+    class Input << (S,Aquamarine) >> {
+        + Logger logwrapper.LoggerWrapper
+        + Ecatrom2000UseCases ecatrom.UseCases
+
+    }
+}
+
+
+namespace appcontext {
+    interface Context  {
+        + Done() 
+        + SetLogger(logger logwrapper.LoggerWrapper) 
+        + Logger() logwrapper.LoggerWrapper
+        + Context() context.Context
+        + TraceID() string
+        + SpanID() string
+        + WithValue(key <font color=blue>interface</font>{}, val <font color=blue>interface</font>{}) 
+        + Value(key <font color=blue>interface</font>{}) <font color=blue>interface</font>{}
+        + TTL() *int64
+
+    }
+    class appContext << (S,Aquamarine) >> {
+        - logger logwrapper.LoggerWrapper
+        - defaultBackgroundContext context.Context
+        - ginContext *gin.Context
+
+        + SetLogger(logger logwrapper.LoggerWrapper) 
+        + Logger() logwrapper.LoggerWrapper
+        + Context() context.Context
+        + Done() 
+        + TraceID() string
+        + SpanID() string
+        + WithValue(key <font color=blue>interface</font>{}, val <font color=blue>interface</font>{}) 
+        + Value(key <font color=blue>interface</font>{}) <font color=blue>interface</font>{}
+        + TTL() *int64
+
+    }
+    class appcontext.ContextKey << (T, #FF7700) >>  {
+    }
+}
+
+"appcontext.Context" <|-- "appcontext.appContext"
+
+namespace database {
+    class dynamoDB << (S,Aquamarine) >> {
+        - tableName string
+        - db *dynamodb.Client
+
+        - upsert(ChatPersistence ecatrom.ChatPersistence) (*ecatrom.ChatPersistence, error)
+
+        + Find(key string) (*ecatrom.ChatPersistence, error)
+        + Insert(applicationEntity ecatrom.ChatPersistence) (*ecatrom.ChatPersistence, error)
+        + Upsert(applicationEntity ecatrom.ChatPersistence) (*ecatrom.ChatPersistence, error)
+        + Delete(key string) error
+        + List() (*[]ecatrom.ChatPersistence, error)
+
+    }
+    class memoryDatabase << (S,Aquamarine) >> {
+        - records <font color=blue>map</font>[string]*ecatrom.ChatPersistence
+
+        + Find(key string) (*ecatrom.ChatPersistence, error)
+        + Insert(ChatPersistence ecatrom.ChatPersistence) (*ecatrom.ChatPersistence, error)
+        + Upsert(applicationEntity ecatrom.ChatPersistence) (*ecatrom.ChatPersistence, error)
+        + Delete(key string) error
+        + List() (*[]ecatrom.ChatPersistence, error)
+
+    }
+}
+
+"ecatrom.RepositoryReader" <|-- "database.dynamoDB"
+"ecatrom.RepositoryWriter" <|-- "database.dynamoDB"
+"ecatrom.RepositoryReader" <|-- "database.memoryDatabase"
+"ecatrom.RepositoryWriter" <|-- "database.memoryDatabase"
+
+namespace ecatrom {
+    class AiQuestion << (S,Aquamarine) >> {
+        + Model string
+        + File string
+        + Language string
+        + ResponseFormat string
+        + Size string
+        + Prompt <font color=blue>interface</font>{}
+        + Instruction string
+        + Input <font color=blue>interface</font>{}
+        + Stop <font color=blue>interface</font>{}
+        + Messages Messages
+        + Stream bool
+        + Echo bool
+        + TopP int
+        + TopK int
+        + Temperature float64
+        + MaxTokens int
+        + N int
+        + Batch int
+        + F16 bool
+        + IgnoreEos bool
+        + RepeatPenalty int
+        + NKeep int
+        + MirostatEta int
+        + MirostatTau int
+        + Mirostat int
+        + Seed int
+        + Mode int
+        + Step int
+
+    }
+    class AiResponse << (S,Aquamarine) >> {
+        + Object string
+        + Model string
+        + Choices []<font color=blue>struct</font>{<font color=blue>struct</font>{string, string}}
+        + Usage <font color=blue>struct</font>{int, int, int}
+
+    }
+    class ChatPersistence << (S,Aquamarine) >> {
+        + EntryID float64
+        + CreatedAt time.Time
+        + Role string
+        + Content string
+
+    }
+    class ChatSummary << (S,Aquamarine) >> {
+        + Role string
+        + Content string
+
+    }
+    interface Creator  {
+        + Create(ctx appcontext.Context, ecatromEntity structx.Messages) (*ChatPersistence, error)
+
+    }
+    class DomainError << (S,Aquamarine) >> {
+        + StatusCode int
+        + Err error
+        + Retryable bool
+        + Message string
+
+        + Error() string
+
+    }
+    class Input << (S,Aquamarine) >> {
+        + Repository Repository
+
+    }
+    interface Lister  {
+        + ListAll(ctx appcontext.Context) (*[]ChatPersistence, error)
+
+    }
+    interface Loader  {
+        + LoadModel() *llama.LLama
+        + LoadLogger( logwrapper.LoggerWrapper) 
+
+    }
+    class ReplyEntity << (S,Aquamarine) >> {
+        + CreatedAt time.Time
+        + EntryID string
+        + Name string
+        + AIReply string
+
+    }
+    interface Repository  {
+    }
+    interface RepositoryReader  {
+        + Find(entryID string) (*ChatPersistence, error)
+        + List() (*[]ChatPersistence, error)
+
+    }
+    interface RepositoryWriter  {
+        + Insert(ChatPersistence ChatPersistence) (*ChatPersistence, error)
+        + Delete(entryID string) error
+        + Upsert(ChatPersistence ChatPersistence) (*ChatPersistence, error)
+
+    }
+    interface Starter  {
+        + StartChat() error
+
+    }
+    interface UseCases  {
+    }
+    class domainError << (S,Aquamarine) >> {
+        + StatusCode int
+        + Description string
+        + Retryable bool
+
+    }
+    class ecatrom.Messages << (T, #FF7700) >>  {
+    }
+    class ecatrom2000 << (S,Aquamarine) >> {
+        - repository Repository
+        - aiModel *llama.LLama
+        - logger logwrapper.LoggerWrapper
+
+        + LastEntryID float64
+
+        + Create(ctx appcontext.Context, ecatromEntity structx.Messages) (*ChatPersistence, error)
+        + ListAll(ctx appcontext.Context) (*[]ChatPersistence, error)
+        + LoadModel() *llama.LLama
+        + LoadLogger(logger logwrapper.LoggerWrapper) 
+        + StartChat() error
+
+    }
+}
+"ecatrom.RepositoryReader" *-- "ecatrom.Repository"
+"ecatrom.RepositoryWriter" *-- "ecatrom.Repository"
+"ecatrom.Creator" *-- "ecatrom.UseCases"
+"ecatrom.Lister" *-- "ecatrom.UseCases"
+"ecatrom.Loader" *-- "ecatrom.UseCases"
+"ecatrom.Starter" *-- "ecatrom.UseCases"
+
+"ecatrom.Creator" <|-- "ecatrom.ecatrom2000"
+"ecatrom.Lister" <|-- "ecatrom.ecatrom2000"
+"ecatrom.Loader" <|-- "ecatrom.ecatrom2000"
+"ecatrom.Starter" <|-- "ecatrom.ecatrom2000"
+
+namespace environment {
+    class Single << (S,Aquamarine) >> {
+        + ENVIRONMENT string
+        + APP_VERSION string
+        + APP_PORT string
+        + APP_URL string
+        + AWS_ENDPOINT string
+        + AWS_REGION string
+        + AWS_PROFILE string
+        + LOG_LEVEL string
+        + DYNAMO_AWS_ENDPOINT string
+        + DYNAMO_TABLE_NAME string
+        + AWS_SQS_URL_QUEUE string
+        + SQS_AWS_ENDPOINT string
+        + INTERVAL_GET_KEYS int64
+        + DEFAULT_PERSISTENT bool
+
+        + Setup() 
+        + IsDevelopment() bool
+
+    }
+}
+
+
+namespace logwrapper {
+    interface Logger  {
+        + Info(msg string, fields ...zap.Field) 
+        + Error(msg string, fields ...zap.Field) 
+        + Warn(msg string, fields ...zap.Field) 
+        + Fatal(msg string, fields ...zap.Field) 
+        + Debug(msg string, fields ...zap.Field) 
+
+    }
+    interface LoggerWrapper  {
+        + TraceID(v string) LoggerWrapper
+        + Version(v string) LoggerWrapper
+        + CreateSpan() LoggerWrapper
+        + RemoveSpan() LoggerWrapper
+
+    }
+    class Zap << (S,Aquamarine) >> {
+        + Logger zap.Logger
+
+        + Info(msg string, fields ...zap.Field) 
+        + Warn(msg string, fields ...zap.Field) 
+        + Error(msg string, fields ...zap.Field) 
+        + Fatal(msg string, fields ...zap.Field) 
+        + Debug(msg string, fields ...zap.Field) 
+
+    }
+    class logWrapper << (S,Aquamarine) >> {
+        - logger Logger
+        - traceID string
+        - span *span
+        - version string
+
+        - clone() LoggerWrapper
+        - mergeField(fields ...zap.Field) []zap.Field
+
+        + TraceID(v string) LoggerWrapper
+        + Version(v string) LoggerWrapper
+        + CreateSpan() LoggerWrapper
+        + RemoveSpan() LoggerWrapper
+        + Info(msg string, fields ...zap.Field) 
+        + Warn(msg string, fields ...zap.Field) 
+        + Error(msg string, fields ...zap.Field) 
+        + Fatal(msg string, fields ...zap.Field) 
+        + Debug(msg string, fields ...zap.Field) 
+
+    }
+    class mock << (S,Aquamarine) >> {
+        + TraceID(v string) LoggerWrapper
+        + Version(v string) LoggerWrapper
+        + CreateSpan() LoggerWrapper
+        + RemoveSpan() LoggerWrapper
+        + Info(msg string, fields ...zap.Field) 
+        + Warn(msg string, fields ...zap.Field) 
+        + Error(msg string, fields ...zap.Field) 
+        + Fatal(msg string, fields ...zap.Field) 
+        + Debug(msg string, fields ...zap.Field) 
+
+    }
+    class span << (S,Aquamarine) >> {
+        - id string
+        - parent *span
+
+    }
+}
+"logwrapper.Logger" *-- "logwrapper.LoggerWrapper"
+
+"logwrapper.Logger" <|-- "logwrapper.Zap"
+"logwrapper.Logger" <|-- "logwrapper.logWrapper"
+"logwrapper.LoggerWrapper" <|-- "logwrapper.logWrapper"
+"logwrapper.Logger" <|-- "logwrapper.mock"
+"logwrapper.LoggerWrapper" <|-- "logwrapper.mock"
+
+namespace structx {
+    class AiQuestion << (S,Aquamarine) >> {
+        + Model string
+        + File string
+        + Language string
+        + ResponseFormat string
+        + Size string
+        + Prompt <font color=blue>interface</font>{}
+        + Instruction string
+        + Input <font color=blue>interface</font>{}
+        + Stop <font color=blue>interface</font>{}
+        + Messages Messages
+        + Stream bool
+        + Echo bool
+        + TopP float64
+        + TopK int
+        + Temperature float64
+        + Maxtokens int
+        + N int
+        + Batch int
+        + F16 bool
+        + IgnoreEOS bool
+        + RepeatPenalty float64
+        + Keep int
+        + MirostatETA float64
+        + MirostatTAU float64
+        + Mirostat int
+        + FrequencyPenalty float64
+        + TFZ float64
+        + Seed int
+        + Mode int
+        + Step int
+
+    }
+    class AiResponse << (S,Aquamarine) >> {
+        + Object string
+        + Model string
+        + Choices []<font color=blue>struct</font>{<font color=blue>struct</font>{string, string}}
+        + Usage <font color=blue>struct</font>{int, int, int}
+
+    }
+    class structx.Messages << (T, #FF7700) >>  {
+    }
+}
+
+
+"__builtin__.string" #.. "appcontext.ContextKey"
+"ecatrom.[]<font color=blue>struct</font>{string, string}" #.. "ecatrom.Messages"
+"structx.[]<font color=blue>struct</font>{string, string}" #.. "structx.Messages"
+@enduml

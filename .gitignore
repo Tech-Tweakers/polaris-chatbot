@@ -1,0 +1,11 @@
+/models
+*models
+models/
+cache
+*cache
+cache*
+aws
+/aws
+*aws
+bin
+/bin
