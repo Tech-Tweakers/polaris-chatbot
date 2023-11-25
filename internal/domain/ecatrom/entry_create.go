@@ -48,7 +48,7 @@ func (l *ecatrom2000) Create(ctx appcontext.Context, ecatromEntity structx.Messa
 	chatPersistenceValues := *dbData
 
 	chatPersistenceToSummary := func(persistence ChatPersistence) ChatSummary {
-		if persistence.ChatID == ecatromEntity[0].ChatID {
+		if persistence.ChatID == ecatromEntity[0].ChatID || persistence.ChatID == "0000" {
 			return ChatSummary{Role: persistence.Role, Content: persistence.Content}
 		} else {
 			return ChatSummary{}
