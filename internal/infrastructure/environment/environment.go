@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 	"sync"
 
 	"github.com/joho/godotenv"
@@ -22,22 +21,15 @@ type Single struct {
 	AWS_REGION          string // nolint: golint
 	AWS_PROFILE         string // nolint: golint
 	LOG_LEVEL           string // nolint: golint
-	DYNAMO_AWS_ENDPOINT string
-	DYNAMO_TABLE_NAME   string
-
-	AWS_SQS_URL_QUEUE string
-	SQS_AWS_ENDPOINT  string
-	INTERVAL_GET_KEYS int64
-
-	DEFAULT_PERSISTENT bool
+	DYNAMO_AWS_ENDPOINT string // nolint: golint
+	DYNAMO_TABLE_NAME   string // nolint: golint
+	DEFAULT_PERSISTENT  string // nolint: golint
 }
 
 func init() {
-	if os.Getenv("ENVIRONMENT") == "development" {
-		err := godotenv.Load(".env.local")
-		if err != nil {
-			log.Println("Error loading .env.local file")
-		}
+	err := godotenv.Load(".env.local")
+	if err != nil {
+		log.Println("Error loading .env.local file")
 	}
 	env := GetInstance()
 	env.Setup()
@@ -46,37 +38,23 @@ func init() {
 func (e *Single) Setup() {
 	e.ENVIRONMENT = os.Getenv("ENVIRONMENT")
 	e.APP_VERSION = os.Getenv("APP_VERSION")
-	e.APP_PORT = getenv("APPLICATION_PORT", "9001")
-	e.APP_URL = getenv("APPLICATION_URL", "http://localhost")
+	e.APP_PORT = os.Getenv("APP_PORT")
+	e.APP_URL = os.Getenv("APP_URL")
 
-	e.AWS_REGION = getenv("AWS_REGION", "us-east-1")
-	e.AWS_ENDPOINT = getenv("AWS_ENDPOINT", "http://localhost:4566")
-	e.AWS_PROFILE = getenv("AWS_PROFILE", "localstack")
+	e.AWS_REGION = os.Getenv("AWS_REGION")
+	e.AWS_ENDPOINT = os.Getenv("AWS_ENDPOINT")
+	e.AWS_PROFILE = os.Getenv("AWS_PROFILE")
 
-	e.LOG_LEVEL = getenv("LOG_LEVEL", "debug")
+	e.LOG_LEVEL = os.Getenv("LOG_LEVEL")
 
-	e.DEFAULT_PERSISTENT = getenvBool("DEFAULT_PERSISTENT", "true")
+	e.DEFAULT_PERSISTENT = os.Getenv("DEFAULT_PERSISTENT")
 
-	e.DYNAMO_AWS_ENDPOINT = getenv("DYNAMO_AWS_ENDPOINT", "http://localhost:4566")
-	e.DYNAMO_TABLE_NAME = getenv("DYNAMO_TABLE_NAME", "ecatrom2000")
+	e.DYNAMO_AWS_ENDPOINT = os.Getenv("DYNAMO_AWS_ENDPOINT")
+	e.DYNAMO_TABLE_NAME = os.Getenv("DYNAMO_TABLE_NAME")
 }
 
 func (e *Single) IsDevelopment() bool {
 	return e.ENVIRONMENT == "development"
-}
-
-func getenvBool(key, fallback string) bool {
-	value := getenv(key, fallback)
-	valueBool, _ := strconv.ParseBool(value)
-	return valueBool
-}
-
-func getenv(key, fallback string) string {
-	value := os.Getenv(key)
-	if len(value) == 0 {
-		return fallback
-	}
-	return value
 }
 
 var singleInstance *Single

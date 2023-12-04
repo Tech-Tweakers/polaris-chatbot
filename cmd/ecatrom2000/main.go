@@ -23,7 +23,7 @@ func main() {
 
 	logger.Info("env",
 		zap.String("LOG_LEVEL", env.LOG_LEVEL),
-		zap.Bool("DEFAULT_PERSISTENT", env.DEFAULT_PERSISTENT),
+		zap.String("DEFAULT_PERSISTENT", env.DEFAULT_PERSISTENT),
 		zap.String("APP_PORT", env.APP_PORT),
 		zap.String("ENVIRONMENT", env.ENVIRONMENT),
 	)
@@ -61,7 +61,7 @@ func setupecatrom2000(logger logwrapper.LoggerWrapper) (ecatrom2000UseCases ecat
 
 func setupDynamoDB() (ecatrom.Repository, error) {
 	env := environment.GetInstance()
-	if !env.DEFAULT_PERSISTENT {
+	if env.DEFAULT_PERSISTENT == "false" {
 		return database.NewMemoryDatabase(), nil
 	}
 

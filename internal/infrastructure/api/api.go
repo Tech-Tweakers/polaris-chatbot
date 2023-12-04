@@ -50,9 +50,9 @@ func resolvePort() string {
 	const CHAR string = ":"
 	env := environment.GetInstance()
 	port := env.APP_PORT
-	firstChar := port[:1]
+	firstChar := port[:0]
 	if firstChar != CHAR {
-		port = CHAR + port
+		port = CHAR + "9001"
 	}
 	return port
 }
