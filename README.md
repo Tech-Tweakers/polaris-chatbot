@@ -1,5 +1,5 @@
-<h1 align="center">Tech Tweakers - Ecatrom2000 v0.0.1 </h1>
-<p align="center"><i>API Interface to deal with GGML AI Models, based on llama.cpp</i></p>
+<h1 align="center">Tech Tweakers - Polaris AI API v0.0.1 </h1>
+<p align="center"><i>API Interface to deal with GGML AI Models, based on go-llama.cpp/llama.cpp</i></p>
 
 <div align="center">
   <a href="https://github.com/Tech-Tweakers/ecatrom2000/stargazers"><img src="https://img.shields.io/github/stars/andreh1982/ecaterminal" alt="Stars Badge"/></a>
