@@ -19,6 +19,11 @@ func (l *ecatrom2000) Create(ctx appcontext.Context, ecatromEntity structx.Messa
 
 	logger := ctx.Logger()
 
+	// Check if ecatromEntity has at least one element
+	if len(ecatromEntity) == 0 {
+		return nil, DomainErrorFactory(BadRequest, "ecatromEntity must have at least one element")
+	}
+
 	logger.Info("Question from user", zap.String("content", ecatromEntity[0].Content), zap.String("where", "create"))
 
 	var chatPersistenceUser ChatPersistence

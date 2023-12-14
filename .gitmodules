@@ -1,0 +1,3 @@
+[submodule "ecatrom/go-llama.cpp"]
+	path = ./go-llama.cpp
+	url = ./go-llama.cpp

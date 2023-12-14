@@ -1,8 +1,6 @@
 package ecatrom
 
 import (
-	"ecatrom/internal/infrastructure/logger/logwrapper"
-
 	"github.com/go-skynet/go-llama.cpp"
 )
 
@@ -15,7 +13,6 @@ type ecatrom2000 struct {
 	LastEntryID float64
 	ChatID      string
 	aiModel     *llama.LLama
-	logger      logwrapper.LoggerWrapper
 }
 
 type UseCases interface {
@@ -30,6 +27,5 @@ func New(input *Input) UseCases {
 		repository:  input.Repository,
 		ChatID:      "0000",
 		LastEntryID: 0000,
-		logger:      nil,
 	}
 }

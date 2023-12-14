@@ -6,3 +6,6 @@ cache
 cache*
 bin
 /bin
+build/
+build
+*.gguf

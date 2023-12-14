@@ -60,7 +60,6 @@ func setupecatrom2000(logger logwrapper.LoggerWrapper) (ecatrom2000UseCases ecat
 	ecatrom2000UseCases = ecatrom.New(memdbInput)
 
 	chatValue++
-	ecatrom2000UseCases.LoadLogger(logger)
 	ecatrom2000UseCases.StartChat(chatValue)
 
 	return ecatrom2000UseCases, nil
