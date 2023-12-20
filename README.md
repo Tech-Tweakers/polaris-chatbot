@@ -1,5 +1,5 @@
 <h1 align="center">Tech Tweakers - Polaris AI API v0.0.1 </h1>
-<p align="center"><i>API Interface to deal with GGML AI Models, based on go-llama.cpp/llama.cpp</i></p>
+<p align="center"><i>API Interface to deal with GGUF Models, based on go-llama.cpp/llama.cpp</i></p>
 
 <div align="center">
   <a href="https://github.com/Tech-Tweakers/ecatrom2000/stargazers"><img src="https://img.shields.io/github/stars/andreh1982/ecaterminal" alt="Stars Badge"/></a>
@@ -11,7 +11,7 @@
 </div>
 
 <br>
-<p align="center"><i>Have some time to help? Please open an <a href="https://github.com/Tech-Tweakers/ecatrom2000/issues/new">Issue</a>.</i></p>
+<p align="center"><i>Have some time to help? Please open an <a href="https://github.com/Tech-Tweakers/ecatrom2000/issues/new">Issue</a> to say hello!</i></p>
 
 ## TODO
 
@@ -20,19 +20,20 @@
 ## Usage (Not tested yet)
 
 ```bash
-# Clone this repository
-$ git clone https://github.com/Tech-Tweakers/ecatrom2000.git
+# Clone this repository:
+$ git clone https://github.com/Tech-Tweakers/polaris-chatbot.git
 
-# Go into the repository
-$ cd ecatrom2000
+# Enter in the folder:
+$ cd polaris-chatbot
 
-# Create a folder called "models"
+# Create a new folder called "models":
 $ mkdir models
 
-# Copy the LLM file to the models folder
+# Copy the LLM file to the models folder:
 $ cp <path to LLM file> models/
 
-# Install dependencies
+# Install dependencies:
+$ go get all
 $ go mod tidy
 
 # Run the app
