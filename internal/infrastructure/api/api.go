@@ -38,9 +38,8 @@ func Start(input Input) {
 	routes.MakeMetricRoute(r)
 	routes.MakeEntriesRoute(r, input.Ecatrom2000UseCases)
 
-	// Update this line to use RunTLS
-	certFile := "/home/atorres/Dev/Go/polaris-chatbot/ssl-certs/ecatrom2099.crt"
-	keyFile := "/home/atorres/Dev/Go/polaris-chatbot/ssl-certs/ecatrom2099.key"
+	certFile := "./ssl-certs/ecatrom2099.crt"
+	keyFile := "./ssl-certs/ecatrom2099.key"
 	if err := r.RunTLS(applicationPort, certFile, keyFile); err != nil {
 		logger.Fatal("failed to start server", zap.Error(err))
 	}
