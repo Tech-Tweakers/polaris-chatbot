@@ -17,7 +17,7 @@
 
 **A lot!** :sweat_smile:
 
-## Usage (Not tested yet)
+## Install (Not tested yet)
 
 ```bash
 # Clone this repository:
@@ -36,8 +36,26 @@ $ cp <path to LLM file> models/
 $ go get all
 $ go mod tidy
 
-# Run the app
+# Run the API
 $ LIBRARY_PATH=$PWD C_INCLUDE_PATH=$PWD go run cmd/ecatrom2000/main.go
+```
+
+## Usage
+
+```bash
+http://localhost:9001
+
+POST /entries/ # Create a new entry
+    [
+      {
+        "chatId":"1234", # Chat ID who will point to the conversation inside DB
+        "role":"user:",  # Average User role
+        "content":"Hi!"  # Message to be sent to the model
+      }
+    ]
+
+GET /entries/all # Get all entries in DB
+
 ```
 
 ## Credits
