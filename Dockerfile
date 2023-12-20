@@ -1,7 +1,7 @@
 ##########################
 ## Build Image
 ##########################
-FROM golang:1.17 as builder
+FROM golang:1.21 as builder
 
 ENV APP_HOME /build
 WORKDIR $APP_HOME

@@ -1,5 +1,3 @@
-#aws-cli>=2.4.9
-
 DYNAMO_TABLE_NAME=ecatrom2000
 
 list-tables:

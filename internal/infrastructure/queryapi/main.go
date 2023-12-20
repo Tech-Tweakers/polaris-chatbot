@@ -43,7 +43,7 @@ func LoadAiModel() (l *llama.LLama) {
 
 	var err error
 
-	l, err = llama.New("./llama-2-7b-chat.Q2_K.gguf", llama.EnableF16Memory, llama.SetContext(2048), llama.SetGPULayers(0))
+	l, err = llama.New("./models/llama-2-7b-chat.Q2_K.gguf", llama.EnableF16Memory, llama.SetContext(2048), llama.SetGPULayers(0))
 	if err != nil {
 		fmt.Println("Loading the model failed:", err.Error())
 		os.Exit(1)

@@ -1,4 +1,4 @@
-<h1 align="center">Tech Tweakers - Polaris AI API v0.0.1 </h1>
+<h1 align="center">Tech Tweakers - Polaris Chat API v0.0.1 </h1>
 <p align="center"><i>API Interface to deal with GGUF Models, based on go-llama.cpp/llama.cpp</i></p>
 
 <div align="center">
