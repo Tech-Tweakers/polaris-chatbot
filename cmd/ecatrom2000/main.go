@@ -19,7 +19,7 @@ func main() {
 	defer dispose()
 
 	logger := logwrapper.New(&logwrapper.Zap{Logger: *zaplogger}).Version(env.APP_VERSION)
-	logger.Info("Starting ecatrom2000 APP")
+	logger.Info("Starting Polaris Chat API")
 
 	logger.Info("env",
 		zap.String("LOG_LEVEL", env.LOG_LEVEL),
@@ -38,7 +38,7 @@ func main() {
 	ecatrom2000UseCases, err := setupecatrom2000(logger)
 
 	if err != nil {
-		logger.Error("failed to setup ecatrom2000", zap.Error(err))
+		logger.Error("failed to setup polaris-chat", zap.Error(err))
 	}
 
 	// setupWorker(logger, ecatrom2000UseCases)
