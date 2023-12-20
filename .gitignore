@@ -4,8 +4,20 @@ models/
 cache
 *cache
 cache*
-aws
-/aws
-*aws
 bin
 /bin
+build/
+build
+*.gguf
+# build files
+/binding.o
+/build
+/ggml-metal.metal
+/libbinding.a
+prepare
+
+# just in case
+.DS_Store
+.idea
+.vscode
+Thumbs.db

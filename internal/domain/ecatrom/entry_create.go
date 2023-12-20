@@ -19,13 +19,18 @@ func (l *ecatrom2000) Create(ctx appcontext.Context, ecatromEntity structx.Messa
 
 	logger := ctx.Logger()
 
+	// Check if ecatromEntity has at least one element
+	if len(ecatromEntity) == 0 {
+		return nil, DomainErrorFactory(BadRequest, "ecatromEntity must have at least one element")
+	}
+
 	logger.Info("Question from user", zap.String("content", ecatromEntity[0].Content), zap.String("where", "create"))
 
 	var chatPersistenceUser ChatPersistence
 
 	l.LastEntryID++
 	chatPersistenceUser.EntryID = l.LastEntryID
-
+	chatPersistenceUser.ChatID = ecatromEntity[0].ChatID
 	chatPersistenceUser.CreatedAt = time.Now()
 	chatPersistenceUser.Role = ecatromEntity[0].Role
 	chatPersistenceUser.Content = ecatromEntity[0].Content
@@ -40,18 +45,21 @@ func (l *ecatrom2000) Create(ctx appcontext.Context, ecatromEntity structx.Messa
 		return nil, err
 	}
 
-	// CALL MSGS PARSER TO AI
-
-	dbData, _ := l.repository.List()
-
 	logger.Info("Querying AI", zap.String("where", "create"))
 
 	l.LastEntryID++
 
+	dbData, _ := l.repository.List()
 	chatPersistenceValues := *dbData
+
 	chatPersistenceToSummary := func(persistence ChatPersistence) ChatSummary {
-		return ChatSummary{Role: persistence.Role, Content: persistence.Content}
+		if persistence.ChatID == ecatromEntity[0].ChatID || persistence.ChatID == "0000" {
+			return ChatSummary{Role: persistence.Role, Content: persistence.Content}
+		} else {
+			return ChatSummary{}
+		}
 	}
+
 	chatSummaries := make([]ChatSummary, len(chatPersistenceValues))
 	for i, chatPersistence := range chatPersistenceValues {
 		chatSummaries[i] = chatPersistenceToSummary(chatPersistence)
@@ -62,6 +70,8 @@ func (l *ecatrom2000) Create(ctx appcontext.Context, ecatromEntity structx.Messa
 	chatSumToString = strings.Replace(chatSumToString, "{", "", -1)
 	chatSumToString = strings.Replace(chatSumToString, "}", "", -1)
 
+	fmt.Println(chatSumToString)
+
 	l.LoadModel()
 
 	aiReply := queryapi.SendMessage(chatSumToString, l.aiModel)
@@ -69,6 +79,7 @@ func (l *ecatrom2000) Create(ctx appcontext.Context, ecatromEntity structx.Messa
 	chatPersistenceAi := ChatPersistence{
 		CreatedAt: time.Now(),
 		EntryID:   l.LastEntryID,
+		ChatID:    ecatromEntity[0].ChatID,
 		Role:      "assistant:",
 		Content:   aiReply,
 	}

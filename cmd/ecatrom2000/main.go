@@ -23,9 +23,16 @@ func main() {
 
 	logger.Info("env",
 		zap.String("LOG_LEVEL", env.LOG_LEVEL),
-		zap.Bool("DEFAULT_PERSISTENT", env.DEFAULT_PERSISTENT),
+		zap.String("DEFAULT_PERSISTENT", env.DEFAULT_PERSISTENT),
 		zap.String("APP_PORT", env.APP_PORT),
 		zap.String("ENVIRONMENT", env.ENVIRONMENT),
+		zap.String("APP_VERSION", env.APP_VERSION),
+		zap.String("APP_URL", env.APP_URL),
+		zap.String("AWS_REGION", env.AWS_REGION),
+		zap.String("AWS_ENDPOINT", env.AWS_ENDPOINT),
+		zap.String("AWS_PROFILE", env.AWS_PROFILE),
+		zap.String("DYNAMO_AWS_ENDPOINT", env.DYNAMO_AWS_ENDPOINT),
+		zap.String("DYNAMO_TABLE_NAME", env.DYNAMO_TABLE_NAME),
 	)
 
 	ecatrom2000UseCases, err := setupecatrom2000(logger)
@@ -39,7 +46,9 @@ func main() {
 
 }
 
-func setupecatrom2000(logger logwrapper.LoggerWrapper) (ecatrom.UseCases, error) {
+func setupecatrom2000(logger logwrapper.LoggerWrapper) (ecatrom2000UseCases ecatrom.UseCases, err error) {
+	var chatValue float64 = 0000
+
 	dynamodb, err := setupDynamoDB()
 	if err != nil {
 		return nil, err
@@ -48,17 +57,17 @@ func setupecatrom2000(logger logwrapper.LoggerWrapper) (ecatrom.UseCases, error)
 	memdbInput := &ecatrom.Input{
 		Repository: dynamodb,
 	}
-	ecatrom2000UseCases := ecatrom.New(memdbInput)
+	ecatrom2000UseCases = ecatrom.New(memdbInput)
 
-	ecatrom2000UseCases.LoadLogger(logger)
-	ecatrom2000UseCases.StartChat()
+	chatValue++
+	ecatrom2000UseCases.StartChat(chatValue)
 
 	return ecatrom2000UseCases, nil
 }
 
 func setupDynamoDB() (ecatrom.Repository, error) {
 	env := environment.GetInstance()
-	if !env.DEFAULT_PERSISTENT {
+	if env.DEFAULT_PERSISTENT == "false" {
 		return database.NewMemoryDatabase(), nil
 	}
 

@@ -38,7 +38,6 @@ func Start(input Input) {
 	routes.MakeMetricRoute(r)
 	routes.MakeEntriesRoute(r, input.Ecatrom2000UseCases)
 
-	// Update this line to use RunTLS
 	certFile := "./ssl-certs/ecatrom2099.crt"
 	keyFile := "./ssl-certs/ecatrom2099.key"
 	if err := r.RunTLS(applicationPort, certFile, keyFile); err != nil {
@@ -50,9 +49,9 @@ func resolvePort() string {
 	const CHAR string = ":"
 	env := environment.GetInstance()
 	port := env.APP_PORT
-	firstChar := port[:1]
+	firstChar := port[:0]
 	if firstChar != CHAR {
-		port = CHAR + port
+		port = CHAR + "9001"
 	}
 	return port
 }
