@@ -24,6 +24,7 @@ type Single struct {
 	DYNAMO_AWS_ENDPOINT string // nolint: golint
 	DYNAMO_TABLE_NAME   string // nolint: golint
 	DEFAULT_PERSISTENT  string // nolint: golint
+	MODEL_PATH          string // nolint: golint
 }
 
 func init() {
@@ -51,6 +52,8 @@ func (e *Single) Setup() {
 
 	e.DYNAMO_AWS_ENDPOINT = os.Getenv("DYNAMO_AWS_ENDPOINT")
 	e.DYNAMO_TABLE_NAME = os.Getenv("DYNAMO_TABLE_NAME")
+
+	e.MODEL_PATH = os.Getenv("MODEL_PATH")
 }
 
 func (e *Single) IsDevelopment() bool {

@@ -1,6 +1,7 @@
 package queryapi
 
 import (
+	"ecatrom/internal/infrastructure/environment"
 	"fmt"
 	"os"
 
@@ -27,7 +28,7 @@ func WorkerLlama(l *llama.LLama, question string) (replyMessage string) {
 		llama.SetSeed(0),
 		llama.SetPresencePenalty(0),
 		llama.SetFrequencyPenalty(2),
-		llama.SetPathPromptCache("./cache"),
+		// llama.SetPathPromptCache("./cache"),
 		llama.SetStopWords("user:", "User:", "system:", "System:"),
 	)
 	if err != nil {
@@ -42,8 +43,9 @@ func WorkerLlama(l *llama.LLama, question string) (replyMessage string) {
 func LoadAiModel() (l *llama.LLama) {
 
 	var err error
+	env := environment.GetInstance()
 
-	l, err = llama.New("./models/llama-2-7b-chat.Q2_K.gguf", llama.EnableF16Memory, llama.SetContext(2048), llama.SetGPULayers(0))
+	l, err = llama.New(env.MODEL_PATH, llama.EnableF16Memory, llama.SetContext(2048), llama.SetGPULayers(0))
 	if err != nil {
 		fmt.Println("Loading the model failed:", err.Error())
 		os.Exit(1)

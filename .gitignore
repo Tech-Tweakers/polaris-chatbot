@@ -21,3 +21,6 @@ prepare
 .idea
 .vscode
 Thumbs.db
+/models
+models/
+models
