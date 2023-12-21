@@ -19,10 +19,10 @@ This project is a simple REST API to deal with **GGUF Models**, based on **go-ll
 
 ## To Do
 
-**VectorDB** to chat persistance;
-Work directly with **llama.cpp**;
+ - **VectorDB** to chat persistance
+ - Work directly with **llama.cpp**
 
-## Install (Not tested yet)
+## Install
 
 ```bash
 # Clone this repository:
@@ -135,11 +135,9 @@ Such awesome projects that made this possible:
 
 ## Contributors / Special Thanks :heart:
 
-**Vitor Ramos** - https://github.com/vitorr7df
-
-**William Stiehler** - https://github.com/wstiehler
-
-**Fabricio Gonçalves** - https://github.com/espigah
+- **Vitor Ramos** - https://github.com/vitorr7df
+- **William Stiehler** - https://github.com/wstiehler
+- **Fabricio Gonçalves** - https://github.com/espigah
 
 In memoriam of **Anderson Roberto** - https://github.com/EuAndersonRoberto 
 
