@@ -133,4 +133,12 @@ Such awesome projects that made this possible:
 | **LLama.cpp** | https://github.com/ggerganov/llama.cpp |
 | **The Bloke** | https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/tree/main |
 
-Love you all! Thank you so much for your hard work! :blue_heart:
+## Contributors / Special Thanks :heart:
+
+**Vitor Ramos** - https://github.com/vitorr7df
+**William Stiehler** - https://github.com/wstiehler
+**Fabricio Gonçalves** - https://github.com/espigah
+
+In memoriam of **Anderson Roberto** - https://github.com/EuAndersonRoberto 
+
+Love you all! Thank you so much! :blue_heart:
