@@ -71,6 +71,7 @@ After that, goes inside the folder go-llama.cpp and run the following command:
 
 ```bash
 make clean
+make prepare
 make libbinding.a
 ```
 ## Run the API:
