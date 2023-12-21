@@ -76,13 +76,19 @@ DYNAMO_TABLE_NAME=ecatrom2000
 
 MODEL_PATH="./models/llama-2-7b-chat.Q2_K.gguf"
 ```
-After that, goes inside the folder go-llama.cpp and run the following command:
+After that, goes inside the folder **go-llama.cpp** and run the following command:
 
 ```bash
 make clean
 make prepare
 make libbinding.a
 ```
+Copy the **libbinding.a** to the root folder:
+  
+  ```bash
+  cp libbinding.a ../
+  ```
+
 ## Run the API:
 
 Run in one line:
