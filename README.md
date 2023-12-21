@@ -47,14 +47,20 @@ go mod tidy
 Edit the **.env.local** file with your own settings:
 
 ```bash
+#
+# Global Setup
+#
+
 ENVIRONMENT=development
 APP_VERSION=v1.0.0
 APP_PORT=9001
 APP_URL=http://localhost:9001
 LOG_LEVEL=debug
+
 #
 # Setup to use DynamoDB
 #
+
 DEFAULT_PERSISTENT=false # False use MemoryDB, True use DynamoDB
 
 AWS_REGION=us-east-1 
@@ -64,7 +70,10 @@ AWS_PROFILE=default # AWS Profile to be used even if you use localstack
 DYNAMO_AWS_ENDPOINT=http://localhost:4566
 DYNAMO_TABLE_NAME=ecatrom2000
 
+#
 # Path to the model - GGUF Models ONLY
+#
+
 MODEL_PATH="./models/llama-2-7b-chat.Q2_K.gguf"
 ```
 After that, goes inside the folder go-llama.cpp and run the following command:
