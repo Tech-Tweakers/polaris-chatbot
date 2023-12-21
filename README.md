@@ -89,7 +89,7 @@ Copy the **libbinding.a** to the root folder:
   cp libbinding.a ../
   ```
 
-## Run the API:
+## Run the API
 
 Run in one line:
 
