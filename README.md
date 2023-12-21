@@ -1,5 +1,5 @@
 <h1 align="center">Tech Tweakers - Polaris Chat API v0.0.1 </h1>
-<p align="center"><i>API Interface to deal with GGUF Models, based on go-llama.cpp / llama.cpp</i></p>
+<p align="center"><i>API Interface for GGUF Models, based on go-llama.cpp / llama.cpp</i></p>
 
 <div align="center">
   <a href="https://github.com/Tech-Tweakers/ecatrom2000/stargazers"><img src="https://img.shields.io/github/stars/andreh1982/ecaterminal" alt="Stars Badge"/></a>
@@ -13,9 +13,14 @@
 <br>
 <p align="center"><i>Have some time to help? Please open an <a href="https://github.com/Tech-Tweakers/ecatrom2000/issues/new">Issue</a> to say hello!</i></p>
 
-## TODO
+## About
 
-**A lot!** :sweat_smile:
+This project is a simple REST API to deal with **GGUF Models**, based on **go-llama.cpp** / **llama.cpp**. It' can be used to create a chatbot, or even a simple chat interface.
+
+## To Do
+
+**VectorDB** to chat persistance;
+Work directly with **llama.cpp**;
 
 ## Install (Not tested yet)
 
@@ -39,7 +44,7 @@ go mod tidy
 ```
 ## Setup
 
-Edit the .env file with your own settings:
+Edit the **.env.local** file with your own settings:
 
 ```bash
 ENVIRONMENT=development
