@@ -26,7 +26,7 @@ Work directly with **llama.cpp**;
 
 ```bash
 # Clone this repository:
-git clone https://github.com/Tech-Tweakers/polaris-chatbot.git
+git clone https://github.com/Tech-Tweakers/polaris-chatbot.git --recurse-submodules
 
 # Enter in the folder:
 cd polaris-chatbot

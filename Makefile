@@ -4,10 +4,10 @@ APP_INTERNAL_DEPTH := $(shell find ./internal -type d -printf '%d\n' | sort -rn 
 
 include Makefile.dynamodb.mk
 
-help: ## Show commands and description
+help:
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-setup: ## Install all dependencies
+setup:
 	@echo "Get the dependencies..."
 	@make dep --silent 
 	@echo "Install staticcheck to lint..."
@@ -16,7 +16,6 @@ setup: ## Install all dependencies
 	# @git config core.hooksPath hooks/
 	# @chmod +x ./hooks/pre-commit
 	go install github.com/securego/gosec/v2/cmd/gosec@v2.13.1
-# 	https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 	@echo "Configuring aws-cli..."
 	@curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 	@unzip awscliv2.zip
