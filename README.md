@@ -91,8 +91,6 @@ Or just run the script:
 Actually the API has 4 endpoints: metrics, health, entries and entries/all.
 
 ```bash
-http://localhost:9001
-
 POST /entries/ # Create a new entry
     [
       {
@@ -107,7 +105,6 @@ GET /entries/all # Get all entries in DB
 GET /health # Check if the API is up and running
 
 GET /metrics # Get some metrics about the API
-
 ```
 
 ## Credits
