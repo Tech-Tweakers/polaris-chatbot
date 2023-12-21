@@ -1,5 +1,5 @@
 <h1 align="center">Tech Tweakers - Polaris Chat API v0.0.1 </h1>
-<p align="center"><i>API Interface to deal with GGUF Models, based on go-llama.cpp/llama.cpp</i></p>
+<p align="center"><i>API Interface to deal with GGUF Models, based on go-llama.cpp / llama.cpp</i></p>
 
 <div align="center">
   <a href="https://github.com/Tech-Tweakers/ecatrom2000/stargazers"><img src="https://img.shields.io/github/stars/andreh1982/ecaterminal" alt="Stars Badge"/></a>
@@ -21,26 +21,69 @@
 
 ```bash
 # Clone this repository:
-$ git clone https://github.com/Tech-Tweakers/polaris-chatbot.git
+git clone https://github.com/Tech-Tweakers/polaris-chatbot.git
 
 # Enter in the folder:
-$ cd polaris-chatbot
+cd polaris-chatbot
 
 # Create a new folder called "models":
-$ mkdir models
+mkdir models
 
 # Copy the LLM file to the models folder:
-$ cp <path to LLM file> models/
+cp <path to LLM file> models/
 
 # Install dependencies:
-$ go get all
-$ go mod tidy
+go get all
+go mod tidy
 
-# Run the API
-$ LIBRARY_PATH=$PWD C_INCLUDE_PATH=$PWD go run cmd/ecatrom2000/main.go
+```
+## Setup
+
+Edit the .env file with your own settings:
+
+```bash
+ENVIRONMENT=development
+APP_VERSION=v1.0.0
+APP_PORT=9001
+APP_URL=http://localhost:9001
+LOG_LEVEL=debug
+#
+# Setup to use DynamoDB
+#
+DEFAULT_PERSISTENT=false # False use MemoryDB, True use DynamoDB
+
+AWS_REGION=us-east-1 
+AWS_ENDPOINT=http://localhost:4566
+AWS_PROFILE=default # AWS Profile to be used even if you use localstack
+
+DYNAMO_AWS_ENDPOINT=http://localhost:4566
+DYNAMO_TABLE_NAME=ecatrom2000
+
+# Path to the model - GGUF Models ONLY
+MODEL_PATH="./models/llama-2-7b-chat.Q2_K.gguf"
+```
+After that, goes inside the folder go-llama.cpp and run the following command:
+
+```bash
+make clean
+make libbinding.a
+```
+## Run the API:
+
+Run in one line:
+
+```bash
+LIBRARY_PATH=$PWD C_INCLUDE_PATH=$PWD go run cmd/ecatrom2000/main.go
+```
+Or just run the script:
+
+```bash
+./run-api.sh
 ```
 
-## Usage
+## API Usage
+
+Actually the API has 4 endpoints: metrics, health, entries and entries/all.
 
 ```bash
 http://localhost:9001
@@ -56,6 +99,10 @@ POST /entries/ # Create a new entry
 
 GET /entries/all # Get all entries in DB
 
+GET /health # Check if the API is up and running
+
+GET /metrics # Get some metrics about the API
+
 ```
 
 ## Credits
@@ -66,6 +113,6 @@ Such awesome projects that made this possible:
 | **Go 1.21** | https://golang.org/ |
 | **Go-LLama.cpp** | https://github.com/go-skynet/go-llama.cpp |
 | **LLama.cpp** | https://github.com/ggerganov/llama.cpp |
-| **The Bloke** | https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGML/tree/main |
+| **The Bloke** | https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF/tree/main |
 
 Love you all! Thank you so much for your hard work! :blue_heart:
