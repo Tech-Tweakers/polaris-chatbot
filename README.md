@@ -136,7 +136,9 @@ Such awesome projects that made this possible:
 ## Contributors / Special Thanks :heart:
 
 **Vitor Ramos** - https://github.com/vitorr7df
+
 **William Stiehler** - https://github.com/wstiehler
+
 **Fabricio Gonçalves** - https://github.com/espigah
 
 In memoriam of **Anderson Roberto** - https://github.com/EuAndersonRoberto 
