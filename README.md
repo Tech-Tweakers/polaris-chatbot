@@ -52,7 +52,7 @@ Edit the **.env.local** file with your own settings:
 #
 
 ENVIRONMENT=development
-APP_VERSION=v1.0.0
+APP_VERSION=v0.0.1
 APP_PORT=9001
 APP_URL=http://localhost:9001
 LOG_LEVEL=debug
