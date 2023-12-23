@@ -20,6 +20,9 @@ type Single struct {
 	LOG_LEVEL          string // nolint: golint
 	DEFAULT_PERSISTENT string // nolint: golint
 	MODEL_PATH         string // nolint: golint
+	DBNAME             string // nolint: golint
+	COLLECTION_NAME    string // nolint: golint
+	CONNECTION_STRING  string // nolint: golint
 }
 
 func init() {
@@ -39,6 +42,9 @@ func (e *Single) Setup() {
 	e.LOG_LEVEL = os.Getenv("LOG_LEVEL")
 
 	e.DEFAULT_PERSISTENT = os.Getenv("DEFAULT_PERSISTENT")
+	e.DBNAME = os.Getenv("DBNAME")
+	e.COLLECTION_NAME = os.Getenv("COLLECTION_NAME")
+	e.CONNECTION_STRING = os.Getenv("CONNECTION_STRING")
 
 	e.MODEL_PATH = os.Getenv("MODEL_PATH")
 }

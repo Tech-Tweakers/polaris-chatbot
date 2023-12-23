@@ -58,10 +58,14 @@ APP_URL=http://localhost:9001
 LOG_LEVEL=debug
 
 #
-# Setup Database
+# Setup to use MongoDB
 #
 
-DEFAULT_PERSISTENT=false # False use MemoryDB, True use MongoDB
+DEFAULT_PERSISTENT=true # False use MemoryDB, True use MongoDB
+
+DBNAME=polaris
+COLLECTION_NAME=polaris-collection
+CONNECTION_STRING=mongodb://root:examplepassword@localhost:27017/polaris?authSource=admin
 
 #
 # Path to the model - GGUF Models ONLY

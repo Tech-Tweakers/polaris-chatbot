@@ -45,7 +45,6 @@ func main() {
 func setupecatrom2000(logger logwrapper.LoggerWrapper) (ecatrom2000UseCases ecatrom.UseCases, err error) {
 	var chatValue float64 = 0000
 
-	// For MongoDB, you can use setupMongoDB() here to switch to MongoDB
 	mongodb, err := setupMongoDB()
 	if err != nil {
 		return nil, err
@@ -75,10 +74,9 @@ func setupMongoDB() (ecatrom.Repository, error) {
 		return database.NewMemoryDatabase(), nil
 	}
 
-	connectionString := "mongodb://root:examplepassword@localhost:27017/polaris?authSource=admin"
-
-	dbName := "polaris"
-	collectionName := "polaris-collection"
+	connectionString := env.CONNECTION_STRING
+	dbName := env.DBNAME
+	collectionName := env.COLLECTION_NAME
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
