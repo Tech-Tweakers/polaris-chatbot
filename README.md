@@ -73,18 +73,23 @@ CONNECTION_STRING=mongodb://root:examplepassword@localhost:27017/polaris?authSou
 
 MODEL_PATH="./models/llama-2-7b-chat.Q2_K.gguf"
 ```
-After that, goes inside the folder **go-llama.cpp** and run the following command:
+Start the MongoDB instance:
+
+```bash
+docker-compose -f compose-mongodb.yml up -d
+```
+Go inside the folder **go-llama.cpp** and run the following commands:
 
 ```bash
 make clean
 make prepare
 make libbinding.a
 ```
-Copy the **libbinding.a** to the root folder:
+After compiled the **libbinding.a**, copy it to the project root folder:
   
-  ```bash
-  cp libbinding.a ../
-  ```
+```bash
+cp libbinding.a ../
+```
 
 ## Run the API
 
