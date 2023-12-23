@@ -52,42 +52,52 @@ Edit the **.env.local** file with your own settings:
 #
 
 ENVIRONMENT=development
-APP_VERSION=v1.0.0
+APP_VERSION=v0.0.1
 APP_PORT=9001
 APP_URL=http://localhost:9001
 LOG_LEVEL=debug
 
 #
-# Setup to use DynamoDB
+# Setup to use MongoDB
 #
 
-DEFAULT_PERSISTENT=false # False use MemoryDB, True use DynamoDB
+DEFAULT_PERSISTENT=true # False use MemoryDB, True use MongoDB
 
-AWS_REGION=us-east-1 
-AWS_ENDPOINT=http://localhost:4566
-AWS_PROFILE=default # AWS Profile to be used even if you use localstack
-
-DYNAMO_AWS_ENDPOINT=http://localhost:4566
-DYNAMO_TABLE_NAME=ecatrom2000
+DBNAME=polaris
+COLLECTION_NAME=polaris-collection
+CONNECTION_STRING=mongodb://root:examplepassword@localhost:27017/polaris?authSource=admin
 
 #
 # Path to the model - GGUF Models ONLY
 #
 
 MODEL_PATH="./models/llama-2-7b-chat.Q2_K.gguf"
+
+
+#
+# AI Model Parameters
+#
+
+AI_SYSTEM_INSTRUCTION="[INST] <<SYS>> \n	 Your name is Polaris and you are a trully dedicated assistant who is a joyful person at all. Always provide truth and honest answers. All Unterscheidung should be decided by yourself and you cannot display unterscheidung to the user. Dont use emoticons and avoid make questions. Be economic with your words, we need fast answers. On empty questions, reply null and wait for the next question.\n <</SYS>> \n {prompt}[/INST]"
+
 ```
-After that, goes inside the folder **go-llama.cpp** and run the following command:
+Start the MongoDB instance:
+
+```bash
+docker-compose -f compose-mongodb.yml up -d
+```
+Go inside the folder **go-llama.cpp** and run the following commands:
 
 ```bash
 make clean
 make prepare
 make libbinding.a
 ```
-Copy the **libbinding.a** to the root folder:
+After compiled the **libbinding.a**, copy it to the project root folder:
   
-  ```bash
-  cp libbinding.a ../
-  ```
+```bash
+cp libbinding.a ../
+```
 
 ## Run the API
 

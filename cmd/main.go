@@ -1,13 +1,14 @@
 package main
 
 import (
+	"context"
 	"ecatrom/internal/domain/ecatrom"
 	"ecatrom/internal/infrastructure/api"
-	"ecatrom/internal/infrastructure/aws"
 	"ecatrom/internal/infrastructure/database"
 	"ecatrom/internal/infrastructure/environment"
 	"ecatrom/internal/infrastructure/logger"
 	"ecatrom/internal/infrastructure/logger/logwrapper"
+	"time"
 
 	"go.uber.org/zap"
 )
@@ -28,11 +29,6 @@ func main() {
 		zap.String("ENVIRONMENT", env.ENVIRONMENT),
 		zap.String("APP_VERSION", env.APP_VERSION),
 		zap.String("APP_URL", env.APP_URL),
-		zap.String("AWS_REGION", env.AWS_REGION),
-		zap.String("AWS_ENDPOINT", env.AWS_ENDPOINT),
-		zap.String("AWS_PROFILE", env.AWS_PROFILE),
-		zap.String("DYNAMO_AWS_ENDPOINT", env.DYNAMO_AWS_ENDPOINT),
-		zap.String("DYNAMO_TABLE_NAME", env.DYNAMO_TABLE_NAME),
 	)
 
 	ecatrom2000UseCases, err := setupecatrom2000(logger)
@@ -49,36 +45,19 @@ func main() {
 func setupecatrom2000(logger logwrapper.LoggerWrapper) (ecatrom2000UseCases ecatrom.UseCases, err error) {
 	var chatValue float64 = 0000
 
-	dynamodb, err := setupDynamoDB()
+	mongodb, err := setupMongoDB()
 	if err != nil {
 		return nil, err
 	}
-
-	memdbInput := &ecatrom.Input{
-		Repository: dynamodb,
+	mongodbInput := &ecatrom.Input{
+		Repository: mongodb,
 	}
-	ecatrom2000UseCases = ecatrom.New(memdbInput)
+	ecatrom2000UseCases = ecatrom.New(mongodbInput)
 
 	chatValue++
 	ecatrom2000UseCases.StartChat(chatValue)
 
 	return ecatrom2000UseCases, nil
-}
-
-func setupDynamoDB() (ecatrom.Repository, error) {
-	env := environment.GetInstance()
-	if env.DEFAULT_PERSISTENT == "false" {
-		return database.NewMemoryDatabase(), nil
-	}
-
-	awsRegion := env.AWS_REGION
-	awsEndpoint := env.DYNAMO_AWS_ENDPOINT
-	table := env.DYNAMO_TABLE_NAME
-	cfg, err := aws.EndpointResolverWithOptionsFunc(awsEndpoint, awsRegion)
-	if err != nil {
-		return nil, err
-	}
-	return database.NewDynamoDB(cfg, table), nil
 }
 
 func setupApi(logger logwrapper.LoggerWrapper, ecatrom2000UseCases ecatrom.UseCases) {
@@ -87,4 +66,20 @@ func setupApi(logger logwrapper.LoggerWrapper, ecatrom2000UseCases ecatrom.UseCa
 		Ecatrom2000UseCases: ecatrom2000UseCases,
 	}
 	api.Start(input)
+}
+
+func setupMongoDB() (ecatrom.Repository, error) {
+	env := environment.GetInstance()
+	if env.DEFAULT_PERSISTENT == "false" {
+		return database.NewMemoryDatabase(), nil
+	}
+
+	connectionString := env.CONNECTION_STRING
+	dbName := env.DBNAME
+	collectionName := env.COLLECTION_NAME
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	return database.NewMongoDB(ctx, connectionString, dbName, collectionName)
 }
