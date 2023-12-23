@@ -11,6 +11,7 @@ type ReplyEntity struct {
 }
 
 type ChatPersistence struct {
+	Key       string    `json:"key"`
 	EntryID   float64   `json:"entryId"`
 	ChatID    string    `json:"chatId"`
 	CreatedAt time.Time `json:"createdAt"`

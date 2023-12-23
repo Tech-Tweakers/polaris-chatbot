@@ -13,18 +13,13 @@ var lock = &sync.Mutex{}
 
 // Single is the singleton instance of the environment
 type Single struct {
-	ENVIRONMENT         string // nolint: golint
-	APP_VERSION         string // nolint: golint
-	APP_PORT            string // nolint: golint
-	APP_URL             string // nolint: golint
-	AWS_ENDPOINT        string // nolint: golint
-	AWS_REGION          string // nolint: golint
-	AWS_PROFILE         string // nolint: golint
-	LOG_LEVEL           string // nolint: golint
-	DYNAMO_AWS_ENDPOINT string // nolint: golint
-	DYNAMO_TABLE_NAME   string // nolint: golint
-	DEFAULT_PERSISTENT  string // nolint: golint
-	MODEL_PATH          string // nolint: golint
+	ENVIRONMENT        string // nolint: golint
+	APP_VERSION        string // nolint: golint
+	APP_PORT           string // nolint: golint
+	APP_URL            string // nolint: golint
+	LOG_LEVEL          string // nolint: golint
+	DEFAULT_PERSISTENT string // nolint: golint
+	MODEL_PATH         string // nolint: golint
 }
 
 func init() {
@@ -41,17 +36,9 @@ func (e *Single) Setup() {
 	e.APP_VERSION = os.Getenv("APP_VERSION")
 	e.APP_PORT = os.Getenv("APP_PORT")
 	e.APP_URL = os.Getenv("APP_URL")
-
-	e.AWS_REGION = os.Getenv("AWS_REGION")
-	e.AWS_ENDPOINT = os.Getenv("AWS_ENDPOINT")
-	e.AWS_PROFILE = os.Getenv("AWS_PROFILE")
-
 	e.LOG_LEVEL = os.Getenv("LOG_LEVEL")
 
 	e.DEFAULT_PERSISTENT = os.Getenv("DEFAULT_PERSISTENT")
-
-	e.DYNAMO_AWS_ENDPOINT = os.Getenv("DYNAMO_AWS_ENDPOINT")
-	e.DYNAMO_TABLE_NAME = os.Getenv("DYNAMO_TABLE_NAME")
 
 	e.MODEL_PATH = os.Getenv("MODEL_PATH")
 }
