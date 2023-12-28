@@ -1,17 +1,17 @@
-<h1 align="center">Tech Tweakers - Polaris Chat API v0.0.1 </h1>
+<h1 align="center">Tech Tweakers - Polaris Chat API v1 </h1>
 <p align="center"><i>API Interface for GGUF Models, based on go-llama.cpp / llama.cpp</i></p>
 
 <div align="center">
-  <a href="https://github.com/Tech-Tweakers/ecatrom2000/stargazers"><img src="https://img.shields.io/github/stars/andreh1982/ecaterminal" alt="Stars Badge"/></a>
-<a href="https://github.com/Tech-Tweakers/ecatrom2000/network/members"><img src="https://img.shields.io/github/forks/andreh1982/ecaterminal" alt="Forks Badge"/></a>
-<a href="https://github.com/Tech-Tweakers/ecatrom2000/pulls"><img src="https://img.shields.io/github/issues-pr/andreh1982/ecaterminal" alt="Pull Requests Badge"/></a>
-<a href="https://github.com/Tech-Tweakers/ecatrom2000/issues"><img src="https://img.shields.io/github/issues/andreh1982/ecaterminal" alt="Issues Badge"/></a>
-<a href="https://github.com/Tech-Tweakers/ecatrom2000/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/andreh1982/ecaterminal?color=2b9348"></a>
-<a href="https://github.com/Tech-Tweakers/ecatrom2000/blob/master/LICENSE"><img src="https://img.shields.io/github/license/andreh1982/ecaterminal?color=2b9348" alt="License Badge"/></a>
+  <a href="https://github.com/Tech-Tweakers/polaris-chatbot/stargazers"><img src="https://img.shields.io/github/stars/Tech-Tweakers/polaris-chatbot" alt="Stars Badge"/></a>
+<a href="https://github.com/Tech-Tweakers/polaris-chatbot/network/members"><img src="https://img.shields.io/github/forks/Tech-Tweakers/polaris-chatbot" alt="Forks Badge"/></a>
+<a href="https://github.com/Tech-Tweakers/polaris-chatbot/pulls"><img src="https://img.shields.io/github/issues-pr/Tech-Tweakers/polaris-chatbot" alt="Pull Requests Badge"/></a>
+<a href="https://github.com/Tech-Tweakers/polaris-chatbot/issues"><img src="https://img.shields.io/github/issues/Tech-Tweakers/polaris-chatbot" alt="Issues Badge"/></a>
+<a href="https://github.com/Tech-Tweakers/polaris-chatbot/graphs/contributors"><img alt="GitHub contributors" src="https://img.shields.io/github/contributors/Tech-Tweakers/polaris-chatbot?color=2b9348"></a>
+<a href="https://github.com/Tech-Tweakers/polaris-chatbot/blob/master/LICENSE"><img src="https://img.shields.io/github/license/Tech-Tweakers/polaris-chatbot?color=2b9348" alt="License Badge"/></a>
 </div>
 
 <br>
-<p align="center"><i>Have some time to help? Please open an <a href="https://github.com/Tech-Tweakers/ecatrom2000/issues/new">Issue</a> to say hello!</i></p>
+<p align="center"><i>Have some time to help? Please open an <a href="https://github.com/Tech-Tweakers/polaris-chatbot/issues/new">Issue</a> to say hello!</i></p>
 
 ## About
 
@@ -104,7 +104,7 @@ cp libbinding.a ../
 Run in one line:
 
 ```bash
-LIBRARY_PATH=$PWD C_INCLUDE_PATH=$PWD go run cmd/ecatrom2000/main.go
+LIBRARY_PATH=$PWD C_INCLUDE_PATH=$PWD go run cmd/polaris-chatbot/main.go
 ```
 Or just run the script:
 
