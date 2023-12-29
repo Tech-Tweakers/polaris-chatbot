@@ -15,7 +15,9 @@
 
 ## About
 
-This project is a simple REST API to deal with **GGUF Models**, based on **go-llama.cpp** / **llama.cpp**. It' can be used to create a chatbot, or even a simple chat interface. Sugested frontend: https://github.com/Tech-Tweakers/polaris-frontend :star:
+This project is a simple REST API to deal with **GGUF Models**, based on **go-llama.cpp** / **llama.cpp**. It' can be used to create a chatbot, or even a simple chat interface. 
+
+Sugested frontend: https://github.com/Tech-Tweakers/polaris-frontend :star:
 
 ## To Do
 
