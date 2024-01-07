@@ -7,11 +7,11 @@ import (
 )
 
 type Loader interface {
-	LoadModel() (m *llama.LLama)
+	LoadModel(kind string) (m *llama.LLama)
 }
 
-func (l *ecatrom2000) LoadModel() (ml *llama.LLama) {
-	ml = queryapi.LoadAiModel()
+func (l *ecatrom2000) LoadModel(kind string) (ml *llama.LLama) {
+	ml = queryapi.LoadAiModel(kind)
 	l.aiModel = ml
 	return l.aiModel
 }

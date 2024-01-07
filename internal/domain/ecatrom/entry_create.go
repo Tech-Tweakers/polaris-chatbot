@@ -12,14 +12,13 @@ import (
 )
 
 type Creator interface {
-	Create(ctx appcontext.Context, ecatromEntity structx.Messages) (*ChatPersistence, error)
+	Create(ctx appcontext.Context, ecatromEntity structx.Messages, kind string) (*ChatPersistence, error)
 }
 
-func (l *ecatrom2000) Create(ctx appcontext.Context, ecatromEntity structx.Messages) (*ChatPersistence, error) {
+func (l *ecatrom2000) Create(ctx appcontext.Context, ecatromEntity structx.Messages, kind string) (*ChatPersistence, error) {
 
 	logger := ctx.Logger()
 
-	// Check if ecatromEntity has at least one element
 	if len(ecatromEntity) == 0 {
 		return nil, DomainErrorFactory(BadRequest, "ecatromEntity must have at least one element")
 	}
@@ -72,7 +71,7 @@ func (l *ecatrom2000) Create(ctx appcontext.Context, ecatromEntity structx.Messa
 
 	fmt.Println(chatSumToString)
 
-	l.LoadModel()
+	l.LoadModel(kind)
 
 	aiReply := queryapi.SendMessage(chatSumToString, l.aiModel)
 	aiReply = strings.Replace(aiReply, "assistant:", "", -1)

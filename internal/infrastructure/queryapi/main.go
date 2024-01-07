@@ -28,7 +28,7 @@ func WorkerLlama(l *llama.LLama, question string) (replyMessage string) {
 		llama.SetSeed(0),
 		llama.SetPresencePenalty(0),
 		llama.SetFrequencyPenalty(2),
-		llama.SetPathPromptCache("./cache"),
+		// llama.SetPathPromptCache("./cache"),
 		llama.SetStopWords("user:", "User:", "system:", "System:"),
 	)
 	if err != nil {
@@ -40,18 +40,26 @@ func WorkerLlama(l *llama.LLama, question string) (replyMessage string) {
 	return replyMessage
 }
 
-func LoadAiModel() (l *llama.LLama) {
+func LoadAiModel(kind string) (l *llama.LLama) {
 
 	var err error
+	var loadModel string
+
 	env := environment.GetInstance()
 
-	l, err = llama.New(env.MODEL_PATH, llama.EnableF16Memory, llama.SetContext(2048), llama.SetGPULayers(0))
+	if kind == "chat" {
+		loadModel = env.CHAT_MODEL_PATH
+	} else if kind == "code" {
+		loadModel = env.CODE_MODEL_PATH
+	}
+
+	l, err = llama.New(loadModel, llama.EnableF16Memory, llama.SetContext(2048), llama.SetGPULayers(0))
 	if err != nil {
 		fmt.Println("Loading the model failed:", err.Error())
 		os.Exit(1)
 	}
 
-	fmt.Println("Model loaded successfully.")
+	fmt.Println("Model " + kind + " loaded successfully.")
 
 	return l
 }

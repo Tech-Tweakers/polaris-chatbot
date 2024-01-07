@@ -14,28 +14,56 @@ import (
 )
 
 func MakeEntriesRoute(r *gin.Engine, managerUseCases ecatrom.UseCases) {
-	grp := r.Group("/entries")
+	grpChat := r.Group("/chat")
 
-	grp.POST("/", func(c *gin.Context) {
-		createEntry(c, managerUseCases)
+	grpChat.POST("/send", func(c *gin.Context) {
+		createChatEntry(c, managerUseCases)
 	})
 
-	grp.GET("/all", func(c *gin.Context) {
-		listEntries(c, managerUseCases)
+	grpChat.GET("/history", func(c *gin.Context) {
+		listChatEntries(c, managerUseCases)
+	})
+
+	grpCode := r.Group("/code")
+
+	grpCode.POST("/send", func(c *gin.Context) {
+		createCodeEntry(c, managerUseCases)
+	})
+
+	grpCode.GET("/history", func(c *gin.Context) {
+		listCodeEntries(c, managerUseCases)
 	})
 }
 
-func createEntry(c *gin.Context, managerUseCases ecatrom.UseCases) {
+func createChatEntry(c *gin.Context, managerUseCases ecatrom.UseCases) {
 	context := getContext(c)
 	var questionEntity structx.Messages
 	received, _ := ioutil.ReadAll(c.Request.Body)
 	_ = json.Unmarshal(received, &questionEntity)
 
-	result, err := managerUseCases.Create(context, questionEntity)
+	kind := "chat"
+	result, err := managerUseCases.Create(context, questionEntity, kind)
 	respond(c, result, err)
 }
 
-func listEntries(c *gin.Context, managerUseCases ecatrom.UseCases) {
+func listChatEntries(c *gin.Context, managerUseCases ecatrom.UseCases) {
+	context := getContext(c)
+	result, err := managerUseCases.ListAll(context)
+	respond(c, result, err)
+}
+
+func createCodeEntry(c *gin.Context, managerUseCases ecatrom.UseCases) {
+	context := getContext(c)
+	var questionEntity structx.Messages
+	received, _ := ioutil.ReadAll(c.Request.Body)
+	_ = json.Unmarshal(received, &questionEntity)
+
+	kind := "code"
+	result, err := managerUseCases.Create(context, questionEntity, kind)
+	respond(c, result, err)
+}
+
+func listCodeEntries(c *gin.Context, managerUseCases ecatrom.UseCases) {
 	context := getContext(c)
 	result, err := managerUseCases.ListAll(context)
 	respond(c, result, err)

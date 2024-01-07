@@ -33,6 +33,9 @@ func main() {
 
 	ecatrom2000UseCases, err := setupecatrom2000(logger)
 
+	var chatValue float64 = 0000
+	ecatrom2000UseCases.StartChat(chatValue)
+
 	if err != nil {
 		logger.Error("failed to setup polaris-chat", zap.Error(err))
 	}
@@ -55,7 +58,6 @@ func setupecatrom2000(logger logwrapper.LoggerWrapper) (ecatrom2000UseCases ecat
 	ecatrom2000UseCases = ecatrom.New(mongodbInput)
 
 	chatValue++
-	ecatrom2000UseCases.StartChat(chatValue)
 
 	return ecatrom2000UseCases, nil
 }
