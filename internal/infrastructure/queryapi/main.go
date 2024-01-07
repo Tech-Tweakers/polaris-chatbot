@@ -8,14 +8,22 @@ import (
 	"github.com/go-skynet/go-llama.cpp"
 )
 
-func SendMessage(ecatromEntity string, m *llama.LLama) (replyMessage string) {
+func SendMessage(ecatromEntity string, m *llama.LLama, kind string) (replyMessage string) {
 
-	replyMessage = WorkerLlama(m, ecatromEntity)
+	replyMessage = WorkerLlama(m, ecatromEntity, kind)
 
 	return replyMessage
 }
 
-func WorkerLlama(l *llama.LLama, question string) (replyMessage string) {
+func WorkerLlama(l *llama.LLama, question string, kind string) (replyMessage string) {
+
+	var promptCache string
+
+	if kind == "chat" {
+		promptCache = "cache.chat"
+	} else if kind == "code" {
+		promptCache = "cache.code"
+	}
 
 	send2AI := " user: " + question
 	replyMessage, err := l.Predict(send2AI, llama.SetTokenCallback(func(token string) bool { return true }),
@@ -28,7 +36,7 @@ func WorkerLlama(l *llama.LLama, question string) (replyMessage string) {
 		llama.SetSeed(0),
 		llama.SetPresencePenalty(0),
 		llama.SetFrequencyPenalty(2),
-		// llama.SetPathPromptCache("./cache"),
+		llama.SetPathPromptCache(promptCache),
 		llama.SetStopWords("user:", "User:", "system:", "System:"),
 	)
 	if err != nil {

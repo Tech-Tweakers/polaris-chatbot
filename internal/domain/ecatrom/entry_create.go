@@ -73,7 +73,7 @@ func (l *ecatrom2000) Create(ctx appcontext.Context, ecatromEntity structx.Messa
 
 	l.LoadModel(kind)
 
-	aiReply := queryapi.SendMessage(chatSumToString, l.aiModel)
+	aiReply := queryapi.SendMessage(chatSumToString, l.aiModel, kind)
 	aiReply = strings.Replace(aiReply, "assistant:", "", -1)
 	chatPersistenceAi := ChatPersistence{
 		CreatedAt: time.Now(),
