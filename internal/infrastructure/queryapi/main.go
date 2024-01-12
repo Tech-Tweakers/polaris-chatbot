@@ -31,18 +31,20 @@ func WorkerLlama(l *llama.LLama, question string, kind string) (replyMessage str
 	}
 
 	send2AI := " user: " + question
-	replyMessage, err := l.Predict(send2AI, llama.SetTokenCallback(func(token string) bool { return true }),
+	replyMessage, err := l.Predict(send2AI,
+		llama.SetTokenCallback(func(token string) bool { return true }),
+		llama.SetBatch(1),
 		llama.SetTokens(setTokens),
 		llama.SetThreads(setThreads),
 		llama.SetTopK(20),
-		llama.SetTopP(0.50),
-		llama.SetTemperature(0.1),
+		llama.SetTopP(0.7),
+		llama.SetTemperature(0.2),
 		llama.SetNKeep(0),
 		llama.SetSeed(0),
 		llama.SetPresencePenalty(0),
 		llama.SetFrequencyPenalty(2),
 		llama.SetPathPromptCache(promptCache),
-		// llama.SetStopWords("user:", "User:", "system:", "System:"),
+		llama.SetStopWords("</s>", "\n\n\n", "user", "user:", "system:", "System:"),
 	)
 	if err != nil {
 		panic(err)

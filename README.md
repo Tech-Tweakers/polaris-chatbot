@@ -33,11 +33,17 @@ git clone https://github.com/Tech-Tweakers/polaris-chatbot.git --recurse-submodu
 # Enter in the folder:
 cd polaris-chatbot
 
+# Init Submodules
+git submodules init
+
+# Update Submodules
+git submodules update
+
 # Create a new folder called "models":
 mkdir models
 
 # Copy the LLM file to the models folder:
-cp <path to LLM file> models/
+cp "path_to_GGUF-LLM_file" models/
 
 # Install dependencies:
 go get all

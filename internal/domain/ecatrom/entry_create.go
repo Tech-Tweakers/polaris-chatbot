@@ -27,12 +27,14 @@ func (l *ecatrom2000) Create(ctx appcontext.Context, ecatromEntity structx.Messa
 
 	var chatPersistenceUser ChatPersistence
 
+	llamaInstTag := "[INST] " + ecatromEntity[0].Content + " [/INST]"
+
 	l.LastEntryID++
 	chatPersistenceUser.EntryID = l.LastEntryID
 	chatPersistenceUser.ChatID = ecatromEntity[0].ChatID
 	chatPersistenceUser.CreatedAt = time.Now()
 	chatPersistenceUser.Role = ecatromEntity[0].Role
-	chatPersistenceUser.Content = ecatromEntity[0].Content
+	chatPersistenceUser.Content = llamaInstTag
 
 	if chatPersistenceUser.EntryID == 0000 {
 		return nil, DomainErrorFactory(BadRequest, "entryID is required")
