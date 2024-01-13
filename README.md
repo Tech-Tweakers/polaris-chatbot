@@ -15,7 +15,7 @@
 
 ## About
 
-This project is a simple Golang REST API to interact with **GGUF Models**, based on the **llama.cpp** golang binding **go-llama.cpp**. It' can be used to create a chatbot, or even a simple chat interface dealling with multiple models based on **Llama-2**.
+This project is a simple Golang REST API to interact with **GGUF Models**, based on the **llama.cpp** and its golang binding **go-llama.cpp**. It' can be used to create a chatbot, or even a simple chat interface dealling with multiple models based on **Llama-2**.
 
 ## Polaris Projects
 
