@@ -15,7 +15,7 @@
 
 ## About
 
-This project is a simple Golang REST API to interact with **GGUF Models**, using as backend the Llama2 C++ port **llama.cpp** and its golang binding, **go-llama.cpp**. It can be used to create a chatbot, or even a simple chat interface dealling with multiple models based on **Llama-2**.
+This project is a simple Golang REST API to interact with **GGUF Models**, using as backend the Llama2 C++ Port called **Llama.cpp** and its golang binding, **Go-Llama.cpp**. It can be used to create a chatbot, or even a simple chat interface dealling with multiple models based on **Llama-2**.
 
 ## Polaris Projects
 
