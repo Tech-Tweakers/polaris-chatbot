@@ -17,7 +17,15 @@
 
 This project is a simple REST API to deal with **GGUF Models**, based on **go-llama.cpp** / **llama.cpp**. It' can be used to create a chatbot, or even a simple chat interface. 
 
-Suggested frontend: https://github.com/Tech-Tweakers/polaris-frontend :star:
+## Polaris Projects
+
+- Polaris Frontend: https://github.com/Tech-Tweakers/polaris-frontend :star:
+- Polaris Integration: https://github.com/Tech-Tweakers/polaris-slack :star:
+
+## Recommended Llama2 Models
+
+- https://huggingface.co/TheBloke/Llama-2-7B-Chat-GGUF 
+- https://huggingface.co/TheBloke/CodeLlama-7B-Instruct-GGUF
 
 ## To Do
 
