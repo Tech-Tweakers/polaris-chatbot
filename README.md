@@ -34,7 +34,7 @@ git clone https://github.com/Tech-Tweakers/polaris-chatbot.git --recurse-submodu
 cd polaris-chatbot
 
 # Init Submodules
-git submodules update --recursive --init
+git submodule update --recursive --init
 
 # Create a new folder called "models":
 mkdir models
