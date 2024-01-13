@@ -15,7 +15,7 @@
 
 ## About
 
-This project is a simple REST API to deal with **GGUF Models**, based on **go-llama.cpp** / **llama.cpp**. It' can be used to create a chatbot, or even a simple chat interface. 
+This project is a simple Golang REST API to deal with **GGUF Models**, based on the **llama.cpp** golang binding **go-llama.cpp**. It' can be used to create a chatbot, or even a simple chat interface dealling with multiple models.
 
 ## Polaris Projects
 
@@ -48,7 +48,7 @@ git submodule update --recursive --init
 mkdir models
 
 # Copy the LLM file to the models folder:
-cp "path_to_GGUF-LLM_file" models/
+cp "LLM-GGUF-FILE" models/
 
 # Install dependencies:
 go get all
@@ -98,6 +98,12 @@ MAX_TOKENS="2048"
 CONTEXT_SIZE="2048"
 
 CPU_THREADS="6"
+
+#
+# To use GPU, you must to compile libs with GPU Aceleration to use it. 
+# Checkout go-llama.cpp repo to more details.
+#
+
 GPU_THREADS="0"
 
 ```
