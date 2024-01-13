@@ -4,14 +4,14 @@ import (
 	"context"
 	"sort"
 
-	"polarisai/internal/domain/ecatrom"
+	"polarisai/internal/domain/polaris"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func NewMongoDB(ctx context.Context, connectionString, dbName, collectionName string) (ecatrom.Repository, error) {
+func NewMongoDB(ctx context.Context, connectionString, dbName, collectionName string) (polaris.Repository, error) {
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(connectionString))
 	if err != nil {
 		return nil, err
@@ -30,15 +30,15 @@ type mongoDB struct {
 	collectionName string
 }
 
-func (m *mongoDB) Insert(applicationEntity ecatrom.ChatPersistence) (*ecatrom.ChatPersistence, error) {
+func (m *mongoDB) Insert(applicationEntity polaris.ChatPersistence) (*polaris.ChatPersistence, error) {
 	return m.upsert(applicationEntity)
 }
 
-func (m *mongoDB) Upsert(applicationEntity ecatrom.ChatPersistence) (*ecatrom.ChatPersistence, error) {
+func (m *mongoDB) Upsert(applicationEntity polaris.ChatPersistence) (*polaris.ChatPersistence, error) {
 	return m.upsert(applicationEntity)
 }
 
-func (m *mongoDB) upsert(ChatPersistence ecatrom.ChatPersistence) (*ecatrom.ChatPersistence, error) {
+func (m *mongoDB) upsert(ChatPersistence polaris.ChatPersistence) (*polaris.ChatPersistence, error) {
 	collection := m.client.Database(m.dbName).Collection(m.collectionName)
 
 	filter := bson.D{{Key: "entryid", Value: ChatPersistence.EntryID}}
@@ -52,7 +52,7 @@ func (m *mongoDB) upsert(ChatPersistence ecatrom.ChatPersistence) (*ecatrom.Chat
 	return &ChatPersistence, nil
 }
 
-func (m *mongoDB) List() (*[]ecatrom.ChatPersistence, error) {
+func (m *mongoDB) List() (*[]polaris.ChatPersistence, error) {
 	collection := m.client.Database(m.dbName).Collection(m.collectionName)
 	cursor, err := collection.Find(context.TODO(), bson.D{})
 	if err != nil {
@@ -60,7 +60,7 @@ func (m *mongoDB) List() (*[]ecatrom.ChatPersistence, error) {
 	}
 	defer cursor.Close(context.TODO())
 
-	var records []ecatrom.ChatPersistence
+	var records []polaris.ChatPersistence
 	err = cursor.All(context.TODO(), &records)
 	if err != nil {
 		return nil, err

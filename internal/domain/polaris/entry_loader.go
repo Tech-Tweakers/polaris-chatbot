@@ -1,4 +1,4 @@
-package ecatrom
+package polaris
 
 import (
 	"polarisai/internal/infrastructure/queryapi"
@@ -10,7 +10,7 @@ type Loader interface {
 	LoadModel(kind string) (m *llama.LLama)
 }
 
-func (l *ecatrom2000) LoadModel(kind string) (ml *llama.LLama) {
+func (l *polaris) LoadModel(kind string) (ml *llama.LLama) {
 	ml = queryapi.LoadAiModel(kind)
 	l.aiModel = ml
 	return l.aiModel

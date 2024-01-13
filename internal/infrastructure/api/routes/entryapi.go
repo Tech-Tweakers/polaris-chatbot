@@ -7,13 +7,13 @@ import (
 	"net/http"
 
 	"polarisai/internal/domain/appcontext"
-	"polarisai/internal/domain/ecatrom"
+	"polarisai/internal/domain/polaris"
 	"polarisai/internal/infrastructure/structx"
 
 	"github.com/gin-gonic/gin"
 )
 
-func MakeEntriesRoute(r *gin.Engine, managerUseCases ecatrom.UseCases) {
+func MakeEntriesRoute(r *gin.Engine, managerUseCases polaris.UseCases) {
 	grpChat := r.Group("/chat")
 
 	grpChat.POST("/send", func(c *gin.Context) {
@@ -35,7 +35,7 @@ func MakeEntriesRoute(r *gin.Engine, managerUseCases ecatrom.UseCases) {
 	})
 }
 
-func createChatEntry(c *gin.Context, managerUseCases ecatrom.UseCases) {
+func createChatEntry(c *gin.Context, managerUseCases polaris.UseCases) {
 	context := getContext(c)
 	var questionEntity structx.Messages
 	received, _ := ioutil.ReadAll(c.Request.Body)
@@ -46,13 +46,13 @@ func createChatEntry(c *gin.Context, managerUseCases ecatrom.UseCases) {
 	respond(c, result, err)
 }
 
-func listChatEntries(c *gin.Context, managerUseCases ecatrom.UseCases) {
+func listChatEntries(c *gin.Context, managerUseCases polaris.UseCases) {
 	context := getContext(c)
 	result, err := managerUseCases.ListAll(context)
 	respond(c, result, err)
 }
 
-func createCodeEntry(c *gin.Context, managerUseCases ecatrom.UseCases) {
+func createCodeEntry(c *gin.Context, managerUseCases polaris.UseCases) {
 	context := getContext(c)
 	var questionEntity structx.Messages
 	received, _ := ioutil.ReadAll(c.Request.Body)
@@ -63,7 +63,7 @@ func createCodeEntry(c *gin.Context, managerUseCases ecatrom.UseCases) {
 	respond(c, result, err)
 }
 
-func listCodeEntries(c *gin.Context, managerUseCases ecatrom.UseCases) {
+func listCodeEntries(c *gin.Context, managerUseCases polaris.UseCases) {
 	context := getContext(c)
 	result, err := managerUseCases.ListAll(context)
 	respond(c, result, err)
@@ -75,7 +75,7 @@ func getContext(c *gin.Context) appcontext.Context {
 
 func respond(c *gin.Context, result interface{}, err error) {
 	if err != nil {
-		if re, ok := err.(*ecatrom.DomainError); ok {
+		if re, ok := err.(*polaris.DomainError); ok {
 			fmt.Printf("re: %v\n", re)
 			c.JSON(re.StatusCode, gin.H{"error": re.Err.Error(), "retryable": re.Retryable, "message": re.Message})
 		} else {

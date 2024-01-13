@@ -3,7 +3,7 @@ package api
 import (
 	// ... (import statements)
 
-	"polarisai/internal/domain/ecatrom"
+	"polarisai/internal/domain/polaris"
 	"polarisai/internal/infrastructure/api/middlewares"
 	"polarisai/internal/infrastructure/api/routes"
 	"polarisai/internal/infrastructure/environment"
@@ -15,14 +15,14 @@ import (
 
 type Input struct {
 	Logger              logwrapper.LoggerWrapper
-	Ecatrom2000UseCases ecatrom.UseCases
+	Ecatrom2000UseCases polaris.UseCases
 }
 
 func Start(input Input) {
 	r := gin.New()
 
 	logger := input.Logger
-	logger.Info("Starting Ecatrom2000 API")
+	logger.Info("Starting Polaris API")
 
 	applicationPort := resolvePort()
 	r.Use(middlewares.CORSMiddleware())

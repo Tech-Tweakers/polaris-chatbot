@@ -34,10 +34,7 @@ git clone https://github.com/Tech-Tweakers/polaris-chatbot.git --recurse-submodu
 cd polaris-chatbot
 
 # Init Submodules
-git submodules init
-
-# Update Submodules
-git submodules update
+git submodules update --recursive --init
 
 # Create a new folder called "models":
 mkdir models
@@ -76,10 +73,11 @@ COLLECTION_NAME=polaris-collection
 CONNECTION_STRING=mongodb://root:examplepassword@localhost:27017/polaris?authSource=admin
 
 #
-# Path to the model - GGUF Models ONLY
+# Path to the models - GGUF Models ONLY
 #
 
-MODEL_PATH="./models/llama-2-7b-chat.Q2_K.gguf"
+CHAT_MODEL_PATH="./models/llama-2-7b-chat.Q2_K.gguf"
+CODE_MODEL_PATH="./models/codellama-7b-instruct.Q4_K_M.gguf"
 
 
 #
@@ -87,6 +85,12 @@ MODEL_PATH="./models/llama-2-7b-chat.Q2_K.gguf"
 #
 
 AI_SYSTEM_INSTRUCTION="[INST] <<SYS>> \n	 Your name is Polaris and you are a trully dedicated assistant who is a joyful person at all. Always provide truth and honest answers. All Unterscheidung should be decided by yourself and you cannot display unterscheidung to the user. Dont use emoticons and avoid make questions. Be economic with your words, we need fast answers. On empty questions, reply null and wait for the next question.\n <</SYS>> \n {prompt}[/INST]"
+
+MAX_TOKENS="2048"
+CONTEXT_SIZE="2048"
+
+CPU_THREADS="6"
+GPU_THREADS="0"
 
 ```
 Start the MongoDB instance:
@@ -122,19 +126,31 @@ Or just run the script:
 
 ## API Usage
 
-Actually the API has 4 endpoints: metrics, health, entries and entries/all.
+Actually there is two main endpoints: chat and code. Just change the endpoint to use the desired model.
 
 ```bash
-POST /entries/ # Create a new entry
+#
+# Change main enpoint to the desired model:
+#
+
+POST /chat/send # Send message to the model
     [
       {
-        "chatId":"1234", # Chat ID who will point to the conversation inside DB
+        "chatId":"1234", # Chat ID to store in DB
         "role":"user:",  # Average User role
         "content":"Hi!"  # Message to be sent to the model
       }
     ]
 
-GET /entries/all # Get all entries in DB
+#
+# History endpoint exists in both main endpoints.
+#
+
+GET /chat/history # Get all entries in DB
+
+#
+# Generic endpoints
+#
 
 GET /health # Check if the API is up and running
 

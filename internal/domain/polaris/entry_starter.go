@@ -1,4 +1,4 @@
-package ecatrom
+package polaris
 
 import (
 	"polarisai/internal/infrastructure/environment"
@@ -9,7 +9,7 @@ type Starter interface {
 	StartChat(chatValue float64) error
 }
 
-func (l *ecatrom2000) StartChat(chatValue float64) error {
+func (l *polaris) StartChat(chatValue float64) error {
 
 	env := environment.GetInstance()
 
