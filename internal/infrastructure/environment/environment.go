@@ -31,6 +31,7 @@ type Single struct {
 	MAX_TOKENS            string // nolint: golint
 	CONTEXT_SIZE          string // nolint: golint
 	CPU_THREADS           string // nolint: golint
+	GPU_THREADS           string // nolint: golint
 }
 
 func init() {
@@ -61,6 +62,7 @@ func (e *Single) Setup() {
 	e.MAX_TOKENS = os.Getenv("MAX_TOKENS")
 	e.CONTEXT_SIZE = os.Getenv("CONTEXT_SIZE")
 	e.CPU_THREADS = os.Getenv("CPU_THREADS")
+	e.GPU_THREADS = os.Getenv("GPU_THREADS")
 }
 
 func (e *Single) IsDevelopment() bool {

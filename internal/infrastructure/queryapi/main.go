@@ -62,6 +62,7 @@ func LoadAiModel(kind string) (l *llama.LLama) {
 
 	env := environment.GetInstance()
 	setContext, _ := strconv.Atoi(env.CONTEXT_SIZE)
+	setGPUThreads, _ := strconv.Atoi(env.GPU_THREADS)
 
 	if kind == "chat" {
 		loadModel = env.CHAT_MODEL_PATH
@@ -69,7 +70,7 @@ func LoadAiModel(kind string) (l *llama.LLama) {
 		loadModel = env.CODE_MODEL_PATH
 	}
 
-	l, err = llama.New(loadModel, llama.EnableF16Memory, llama.SetContext(setContext), llama.SetGPULayers(0))
+	l, err = llama.New(loadModel, llama.EnableF16Memory, llama.SetContext(setContext), llama.SetGPULayers(setGPUThreads))
 	if err != nil {
 		fmt.Println("Loading the model failed:", err.Error())
 		os.Exit(1)
