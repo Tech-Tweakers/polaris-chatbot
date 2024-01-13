@@ -1,7 +1,7 @@
 package ecatrom
 
 import (
-	"ecatrom/internal/infrastructure/environment"
+	"polarisai/internal/infrastructure/environment"
 	"time"
 )
 

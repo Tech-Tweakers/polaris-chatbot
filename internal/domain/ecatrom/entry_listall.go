@@ -1,7 +1,7 @@
 package ecatrom
 
 import (
-	"ecatrom/internal/domain/appcontext"
+	"polarisai/internal/domain/appcontext"
 
 	"go.uber.org/zap"
 )

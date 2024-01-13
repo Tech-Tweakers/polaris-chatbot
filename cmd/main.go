@@ -2,12 +2,12 @@ package main
 
 import (
 	"context"
-	"ecatrom/internal/domain/ecatrom"
-	"ecatrom/internal/infrastructure/api"
-	"ecatrom/internal/infrastructure/database"
-	"ecatrom/internal/infrastructure/environment"
-	"ecatrom/internal/infrastructure/logger"
-	"ecatrom/internal/infrastructure/logger/logwrapper"
+	"polarisai/internal/domain/ecatrom"
+	"polarisai/internal/infrastructure/api"
+	"polarisai/internal/infrastructure/database"
+	"polarisai/internal/infrastructure/environment"
+	"polarisai/internal/infrastructure/logger"
+	"polarisai/internal/infrastructure/logger/logwrapper"
 	"time"
 
 	"go.uber.org/zap"

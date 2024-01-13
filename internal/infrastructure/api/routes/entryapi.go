@@ -6,9 +6,9 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"ecatrom/internal/domain/appcontext"
-	"ecatrom/internal/domain/ecatrom"
-	"ecatrom/internal/infrastructure/structx"
+	"polarisai/internal/domain/appcontext"
+	"polarisai/internal/domain/ecatrom"
+	"polarisai/internal/infrastructure/structx"
 
 	"github.com/gin-gonic/gin"
 )

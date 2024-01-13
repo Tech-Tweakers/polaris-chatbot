@@ -1,9 +1,9 @@
 package ecatrom
 
 import (
-	"ecatrom/internal/infrastructure/queryapi"
+	"polarisai/internal/infrastructure/queryapi"
 
-	"github.com/go-skynet/go-llama.cpp"
+	llama "github.com/go-skynet/go-llama.cpp"
 )
 
 type Loader interface {

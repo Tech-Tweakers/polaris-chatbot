@@ -8,7 +8,7 @@ import (
 	"runtime/debug"
 	"strings"
 
-	"ecatrom/internal/domain/appcontext"
+	"polarisai/internal/domain/appcontext"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"

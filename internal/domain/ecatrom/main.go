@@ -1,7 +1,7 @@
 package ecatrom
 
 import (
-	"github.com/go-skynet/go-llama.cpp"
+	llama "github.com/go-skynet/go-llama.cpp"
 )
 
 type Input struct {

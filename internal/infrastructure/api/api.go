@@ -3,11 +3,11 @@ package api
 import (
 	// ... (import statements)
 
-	"ecatrom/internal/domain/ecatrom"
-	"ecatrom/internal/infrastructure/api/middlewares"
-	"ecatrom/internal/infrastructure/api/routes"
-	"ecatrom/internal/infrastructure/environment"
-	"ecatrom/internal/infrastructure/logger/logwrapper"
+	"polarisai/internal/domain/ecatrom"
+	"polarisai/internal/infrastructure/api/middlewares"
+	"polarisai/internal/infrastructure/api/routes"
+	"polarisai/internal/infrastructure/environment"
+	"polarisai/internal/infrastructure/logger/logwrapper"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"

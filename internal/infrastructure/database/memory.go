@@ -1,8 +1,8 @@
 package database
 
 import (
-	"ecatrom/internal/domain/ecatrom"
 	"fmt"
+	"polarisai/internal/domain/ecatrom"
 	"sort"
 )
 

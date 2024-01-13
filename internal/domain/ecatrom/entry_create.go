@@ -1,10 +1,10 @@
 package ecatrom
 
 import (
-	"ecatrom/internal/domain/appcontext"
-	"ecatrom/internal/infrastructure/queryapi"
-	"ecatrom/internal/infrastructure/structx"
 	"fmt"
+	"polarisai/internal/domain/appcontext"
+	"polarisai/internal/infrastructure/queryapi"
+	"polarisai/internal/infrastructure/structx"
 	"strings"
 	"time"
 

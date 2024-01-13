@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"ecatrom/internal/domain/appcontext"
-	"ecatrom/internal/infrastructure/logger/logwrapper"
+	"polarisai/internal/domain/appcontext"
+	"polarisai/internal/infrastructure/logger/logwrapper"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"

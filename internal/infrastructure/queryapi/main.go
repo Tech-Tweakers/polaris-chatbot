@@ -1,12 +1,12 @@
 package queryapi
 
 import (
-	"ecatrom/internal/infrastructure/environment"
 	"fmt"
 	"os"
+	"polarisai/internal/infrastructure/environment"
 	"strconv"
 
-	"github.com/go-skynet/go-llama.cpp"
+	llama "github.com/go-skynet/go-llama.cpp"
 )
 
 func SendMessage(ecatromEntity string, m *llama.LLama, kind string) (replyMessage string) {
