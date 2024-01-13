@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"ecatrom/internal/infrastructure/logger/logwrapper"
+	"polarisai/internal/infrastructure/logger/logwrapper"
 
 	"github.com/gin-gonic/gin"
 )

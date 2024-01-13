@@ -2,12 +2,12 @@ package main
 
 import (
 	"context"
-	"ecatrom/internal/domain/ecatrom"
-	"ecatrom/internal/infrastructure/api"
-	"ecatrom/internal/infrastructure/database"
-	"ecatrom/internal/infrastructure/environment"
-	"ecatrom/internal/infrastructure/logger"
-	"ecatrom/internal/infrastructure/logger/logwrapper"
+	"polarisai/internal/domain/polaris"
+	"polarisai/internal/infrastructure/api"
+	"polarisai/internal/infrastructure/database"
+	"polarisai/internal/infrastructure/environment"
+	"polarisai/internal/infrastructure/logger"
+	"polarisai/internal/infrastructure/logger/logwrapper"
 	"time"
 
 	"go.uber.org/zap"
@@ -31,36 +31,38 @@ func main() {
 		zap.String("APP_URL", env.APP_URL),
 	)
 
-	ecatrom2000UseCases, err := setupecatrom2000(logger)
+	polarisUseCases, err := setupPolaris(logger)
+
+	var chatValue float64 = 0000
+	polarisUseCases.StartChat(chatValue)
 
 	if err != nil {
 		logger.Error("failed to setup polaris-chat", zap.Error(err))
 	}
 
 	// setupWorker(logger, ecatrom2000UseCases)
-	setupApi(logger, ecatrom2000UseCases)
+	setupApi(logger, polarisUseCases)
 
 }
 
-func setupecatrom2000(logger logwrapper.LoggerWrapper) (ecatrom2000UseCases ecatrom.UseCases, err error) {
+func setupPolaris(logger logwrapper.LoggerWrapper) (polarisUseCases polaris.UseCases, err error) {
 	var chatValue float64 = 0000
 
 	mongodb, err := setupMongoDB()
 	if err != nil {
 		return nil, err
 	}
-	mongodbInput := &ecatrom.Input{
+	mongodbInput := &polaris.Input{
 		Repository: mongodb,
 	}
-	ecatrom2000UseCases = ecatrom.New(mongodbInput)
+	polarisUseCases = polaris.New(mongodbInput)
 
 	chatValue++
-	ecatrom2000UseCases.StartChat(chatValue)
 
-	return ecatrom2000UseCases, nil
+	return polarisUseCases, nil
 }
 
-func setupApi(logger logwrapper.LoggerWrapper, ecatrom2000UseCases ecatrom.UseCases) {
+func setupApi(logger logwrapper.LoggerWrapper, ecatrom2000UseCases polaris.UseCases) {
 	input := api.Input{
 		Logger:              logger,
 		Ecatrom2000UseCases: ecatrom2000UseCases,
@@ -68,7 +70,7 @@ func setupApi(logger logwrapper.LoggerWrapper, ecatrom2000UseCases ecatrom.UseCa
 	api.Start(input)
 }
 
-func setupMongoDB() (ecatrom.Repository, error) {
+func setupMongoDB() (polaris.Repository, error) {
 	env := environment.GetInstance()
 	if env.DEFAULT_PERSISTENT == "false" {
 		return database.NewMemoryDatabase(), nil

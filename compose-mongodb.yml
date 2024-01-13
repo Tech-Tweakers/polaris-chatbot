@@ -10,7 +10,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: examplepassword
       MONGO_INITDB_DATABASE: mydatabase
     networks:
-      - ecatrom2000
+      - polaris
 
   mongo-express:
     image: mongo-express
@@ -23,7 +23,7 @@ services:
       ME_CONFIG_MONGODB_SERVER: mongodb
       ME_CONFIG_MONGODB_ENABLE_ADMIN: "true"
     networks:
-      - ecatrom2000
+      - polaris
   initialize-mongo:
 
     image: mongo:latest
@@ -34,5 +34,5 @@ services:
       - mongodb
 
 networks:
-  ecatrom2000:
+  polaris:
     driver: bridge

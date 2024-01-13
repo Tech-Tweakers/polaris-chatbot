@@ -1,4 +1,4 @@
-package ecatrom
+package polaris
 
 type RepositoryReader interface {
 	List() (*[]ChatPersistence, error)

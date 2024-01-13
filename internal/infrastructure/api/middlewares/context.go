@@ -3,7 +3,7 @@ package middlewares
 import (
 	"context"
 
-	"ecatrom/internal/domain/appcontext"
+	"polarisai/internal/domain/appcontext"
 
 	"github.com/gin-gonic/gin"
 )

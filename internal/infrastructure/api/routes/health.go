@@ -3,7 +3,7 @@ package routes
 import (
 	"net/http"
 
-	"ecatrom/internal/infrastructure/environment"
+	"polarisai/internal/infrastructure/environment"
 
 	"github.com/gin-gonic/gin"
 )

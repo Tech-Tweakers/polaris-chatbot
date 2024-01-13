@@ -1,10 +1,10 @@
-package ecatrom
+package polaris
 
 import (
-	"ecatrom/internal/domain/appcontext"
-	"ecatrom/internal/infrastructure/queryapi"
-	"ecatrom/internal/infrastructure/structx"
 	"fmt"
+	"polarisai/internal/domain/appcontext"
+	"polarisai/internal/infrastructure/queryapi"
+	"polarisai/internal/infrastructure/structx"
 	"strings"
 	"time"
 
@@ -12,28 +12,29 @@ import (
 )
 
 type Creator interface {
-	Create(ctx appcontext.Context, ecatromEntity structx.Messages) (*ChatPersistence, error)
+	Create(ctx appcontext.Context, ecatromEntity structx.Messages, kind string) (*ChatPersistence, error)
 }
 
-func (l *ecatrom2000) Create(ctx appcontext.Context, ecatromEntity structx.Messages) (*ChatPersistence, error) {
+func (l *polaris) Create(ctx appcontext.Context, polarisEntity structx.Messages, kind string) (*ChatPersistence, error) {
 
 	logger := ctx.Logger()
 
-	// Check if ecatromEntity has at least one element
-	if len(ecatromEntity) == 0 {
+	if len(polarisEntity) == 0 {
 		return nil, DomainErrorFactory(BadRequest, "ecatromEntity must have at least one element")
 	}
 
-	logger.Info("Question from user", zap.String("content", ecatromEntity[0].Content), zap.String("where", "create"))
+	logger.Info("Question from user", zap.String("content", polarisEntity[0].Content), zap.String("where", "create"))
 
 	var chatPersistenceUser ChatPersistence
 
+	llamaInstTag := "[INST] " + polarisEntity[0].Content + " [/INST]"
+
 	l.LastEntryID++
 	chatPersistenceUser.EntryID = l.LastEntryID
-	chatPersistenceUser.ChatID = ecatromEntity[0].ChatID
+	chatPersistenceUser.ChatID = polarisEntity[0].ChatID
 	chatPersistenceUser.CreatedAt = time.Now()
-	chatPersistenceUser.Role = ecatromEntity[0].Role
-	chatPersistenceUser.Content = ecatromEntity[0].Content
+	chatPersistenceUser.Role = polarisEntity[0].Role
+	chatPersistenceUser.Content = llamaInstTag
 
 	if chatPersistenceUser.EntryID == 0000 {
 		return nil, DomainErrorFactory(BadRequest, "entryID is required")
@@ -53,7 +54,7 @@ func (l *ecatrom2000) Create(ctx appcontext.Context, ecatromEntity structx.Messa
 	chatPersistenceValues := *dbData
 
 	chatPersistenceToSummary := func(persistence ChatPersistence) ChatSummary {
-		if persistence.ChatID == ecatromEntity[0].ChatID || persistence.ChatID == "0000" {
+		if persistence.ChatID == polarisEntity[0].ChatID || persistence.ChatID == "0000" {
 			return ChatSummary{Role: persistence.Role, Content: persistence.Content}
 		} else {
 			return ChatSummary{}
@@ -72,14 +73,14 @@ func (l *ecatrom2000) Create(ctx appcontext.Context, ecatromEntity structx.Messa
 
 	fmt.Println(chatSumToString)
 
-	l.LoadModel()
+	l.LoadModel(kind)
 
-	aiReply := queryapi.SendMessage(chatSumToString, l.aiModel)
+	aiReply := queryapi.SendMessage(chatSumToString, l.aiModel, kind)
 	aiReply = strings.Replace(aiReply, "assistant:", "", -1)
 	chatPersistenceAi := ChatPersistence{
 		CreatedAt: time.Now(),
 		EntryID:   l.LastEntryID,
-		ChatID:    ecatromEntity[0].ChatID,
+		ChatID:    polarisEntity[0].ChatID,
 		Role:      "assistant:",
 		Content:   aiReply,
 	}

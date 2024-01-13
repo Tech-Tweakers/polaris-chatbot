@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"log"
 
-	"ecatrom/internal/infrastructure/environment"
+	"polarisai/internal/infrastructure/environment"
 
 	"go.uber.org/zap"
 )
