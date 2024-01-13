@@ -11,7 +11,7 @@
 </div>
 
 <br>
-<p align="center"><i>Have some time to help? Please open an <a href="https://github.com/Tech-Tweakers/polaris-chatbot/issues/new">Issue</a> to say hello!</i></p>
+<p align="center"><i>Got problems or hHave some time to help and join us? Please open an <a href="https://github.com/Tech-Tweakers/polaris-chatbot/issues/new">Issue</a> to tell us!</i></p>
 
 ## About
 
