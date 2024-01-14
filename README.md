@@ -11,7 +11,7 @@
 </div>
 
 <br>
-<p align="center"><i>Got problems or hHave some time to help and join us? Please open an <a href="https://github.com/Tech-Tweakers/polaris-chatbot/issues/new">Issue</a> to tell us!</i></p>
+<p align="center"><i>Got problems or have some time to help and join us? Please open an <a href="https://github.com/Tech-Tweakers/polaris-chatbot/issues/new">Issue</a> to tell us!</i></p>
 
 ## About
 
@@ -130,7 +130,7 @@ cp libbinding.a ../
 Run in one line:
 
 ```bash
-LIBRARY_PATH=$PWD C_INCLUDE_PATH=$PWD go run cmd/polaris-chatbot/main.go
+LIBRARY_PATH=$PWD C_INCLUDE_PATH=$PWD go run cmd/main.go
 ```
 Or just run the script:
 
