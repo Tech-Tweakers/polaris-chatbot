@@ -43,7 +43,7 @@ func WorkerLlama(l *llama.LLama, question string, kind string) (replyMessage str
 		llama.SetPresencePenalty(0),
 		llama.SetFrequencyPenalty(2),
 		llama.SetPathPromptCache(promptCache),
-		llama.SetStopWords("</s>", "\n\n\n", "user", "user:", "system:", "System:"),
+		llama.SetStopWords("</s>", "\n\n\n", "user:", "system:", "System:"),
 	)
 	if err != nil {
 		panic(err)
