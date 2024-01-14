@@ -87,7 +87,6 @@ CONNECTION_STRING=mongodb://root:examplepassword@localhost:27017/polaris?authSou
 CHAT_MODEL_PATH="./models/llama-2-7b-chat.Q2_K.gguf"
 CODE_MODEL_PATH="./models/codellama-7b-instruct.Q4_K_M.gguf"
 
-
 #
 # AI Model Parameters
 #

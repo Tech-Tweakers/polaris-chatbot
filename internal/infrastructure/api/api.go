@@ -36,9 +36,7 @@ func Start(input Input) {
 	routes.MakeMetricRoute(r)
 	routes.MakeEntriesRoute(r, input.Ecatrom2000UseCases)
 
-	certFile := "./ssl-certs/polaris.crt"
-	keyFile := "./ssl-certs/polaris.key"
-	if err := r.RunTLS(applicationPort, certFile, keyFile); err != nil {
+	if err := r.Run(applicationPort); err != nil {
 		logger.Fatal("failed to start server", zap.Error(err))
 	}
 }
