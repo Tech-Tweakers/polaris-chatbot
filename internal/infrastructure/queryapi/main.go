@@ -33,7 +33,6 @@ func WorkerLlama(l *llama.LLama, question string, kind string) (replyMessage str
 	send2AI := " user: " + question
 	replyMessage, err := l.Predict(send2AI,
 		llama.SetTokenCallback(func(token string) bool { return true }),
-		llama.SetBatch(1),
 		llama.SetTokens(setTokens),
 		llama.SetThreads(setThreads),
 		llama.SetTopK(20),
