@@ -146,7 +146,7 @@ Actually there is two main endpoints: chat and code. Just change the endpoint to
 # Change main enpoint to the desired model:
 #
 
-POST https://localhost:9001/chat/send # Send message to the model
+POST http://localhost:9001/chat/send # Send message to the model
     [
       {
         "chatId":"1234", # Chat ID to store in DB
@@ -159,15 +159,15 @@ POST https://localhost:9001/chat/send # Send message to the model
 # History endpoint exists in both main endpoints.
 #
 
-GET https://localhost:9001/chat/history # Get all entries in DB
+GET http://localhost:9001/chat/history # Get all entries in DB
 
 #
 # Generic endpoints
 #
 
-GET https://localhost:9001/health # Check if the API is up and running
+GET http://localhost:9001/health  # Check if the API is up and running
 
-GET https://localhost:9001/metrics # Get some metrics about the API
+GET http://localhost:9001/metrics # Get some metrics about the API
 ```
 
 ## Credits
