@@ -101,7 +101,7 @@ CPU_THREADS="6"
 
 #
 # To use GPU, you must to compile libs with GPU Aceleration to use it. 
-# Checkout go-llama.cpp repo to more details.
+# Checkout go-llama.cpp repo for more details.
 #
 
 GPU_THREADS="0"
@@ -147,7 +147,7 @@ Actually there is two main endpoints: chat and code. Just change the endpoint to
 # Change main enpoint to the desired model:
 #
 
-POST /chat/send # Send message to the model
+POST https://localhost:9001/chat/send # Send message to the model
     [
       {
         "chatId":"1234", # Chat ID to store in DB
@@ -160,15 +160,15 @@ POST /chat/send # Send message to the model
 # History endpoint exists in both main endpoints.
 #
 
-GET /chat/history # Get all entries in DB
+GET https://localhost:9001/chat/history # Get all entries in DB
 
 #
 # Generic endpoints
 #
 
-GET /health # Check if the API is up and running
+GET https://localhost:9001/health # Check if the API is up and running
 
-GET /metrics # Get some metrics about the API
+GET https://localhost:9001/metrics # Get some metrics about the API
 ```
 
 ## Credits

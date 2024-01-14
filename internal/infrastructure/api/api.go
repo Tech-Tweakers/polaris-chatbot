@@ -1,8 +1,6 @@
 package api
 
 import (
-	// ... (import statements)
-
 	"polarisai/internal/domain/polaris"
 	"polarisai/internal/infrastructure/api/middlewares"
 	"polarisai/internal/infrastructure/api/routes"
@@ -38,8 +36,8 @@ func Start(input Input) {
 	routes.MakeMetricRoute(r)
 	routes.MakeEntriesRoute(r, input.Ecatrom2000UseCases)
 
-	certFile := "./ssl-certs/ecatrom2099.crt"
-	keyFile := "./ssl-certs/ecatrom2099.key"
+	certFile := "./ssl-certs/polaris.crt"
+	keyFile := "./ssl-certs/polaris.key"
 	if err := r.RunTLS(applicationPort, certFile, keyFile); err != nil {
 		logger.Fatal("failed to start server", zap.Error(err))
 	}
