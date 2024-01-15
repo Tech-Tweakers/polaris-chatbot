@@ -11,7 +11,7 @@
 </div>
 
 <br>
-<p align="center"><i>Got problems or have some time to help and join us? Please open an <a href="https://github.com/Tech-Tweakers/polaris-chatbot/issues/new">Issue</a> to tell us!</i></p>
+<p align="center"><i>Got problems or have some time to help? Please open an <a href="https://github.com/Tech-Tweakers/polaris-chatbot/issues/new">Issue</a> to tell us!</i></p>
 
 ## About
 
@@ -74,7 +74,7 @@ LOG_LEVEL=debug
 # Setup to use MongoDB
 #
 
-DEFAULT_PERSISTENT=true # False use MemoryDB, True use MongoDB
+DEFAULT_PERSISTENT=false # False use MemoryDB, True use MongoDB
 
 DBNAME=polaris
 COLLECTION_NAME=polaris-collection
@@ -111,7 +111,7 @@ Start the MongoDB instance:
 ```bash
 docker-compose -f compose-mongodb.yml up -d
 ```
-Go inside the folder **go-llama.cpp** and run the following commands:
+Into the folder **go-llama.cpp**, run the following commands:
 
 ```bash
 make clean
@@ -139,7 +139,7 @@ Or just run the script:
 
 ## API Usage
 
-Actually there is two main endpoints: chat and code. Just change the endpoint to use the desired model.
+Actually there is two main endpoints: **/chat and /code**. Just change the endpoint to use the desired model.
 
 ```bash
 #
@@ -173,6 +173,7 @@ GET http://localhost:9001/metrics # Get some metrics about the API
 ## Credits
 
 Such awesome projects that made this possible:
+
 | Tool | Link |
 |------|------|
 | **Go 1.21** | https://golang.org/ |
