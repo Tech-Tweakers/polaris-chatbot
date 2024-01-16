@@ -18,6 +18,7 @@ type Single struct {
 	APP_PORT    string // nolint: golint
 	APP_URL     string // nolint: golint
 	LOG_LEVEL   string // nolint: golint
+	ENABLE_SSL  string // nolint: golint
 
 	DEFAULT_PERSISTENT string // nolint: golint
 	DBNAME             string // nolint: golint
@@ -49,6 +50,7 @@ func (e *Single) Setup() {
 	e.APP_PORT = os.Getenv("APP_PORT")
 	e.APP_URL = os.Getenv("APP_URL")
 	e.LOG_LEVEL = os.Getenv("LOG_LEVEL")
+	e.ENABLE_SSL = os.Getenv("ENABLE_SSL")
 
 	e.DEFAULT_PERSISTENT = os.Getenv("DEFAULT_PERSISTENT")
 	e.DBNAME = os.Getenv("DBNAME")
